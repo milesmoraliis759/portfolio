@@ -1,49 +1,37 @@
-# Harsh Mishra — Personal Portfolio
+# Harsh Mishra — Portfolio & Learning Hub
 
-A personal portfolio and learning hub for documenting my journey in pharmaceutical sciences, technology, and continuous learning.
+A personal portfolio built with **Next.js App Router**, TypeScript and a separate MDX content repository.
 
-## About
+The site takes inspiration from [Abhinandan Mishra](https://www.abhinandanmishra.in/), adapted for pharmaceutical sciences, industry learning and pharmacy education.
 
-I'm a B.Pharm student interested in pharmaceutical sciences, research, and practical learning. This portfolio is intended to bring together my background, projects, training experience, and educational content in one place.
+## Architecture
+- **Portfolio app:** Next.js site, profile, experience, projects, contact, articles and learning routes.
+- **Content repository:** [milesmoraliis759/content](https://github.com/milesmoraliis759/content), connected at `content/` as a Git submodule.
+- **MDX:** articles and lessons are authored as Markdown + optional JSX with YAML frontmatter.
 
-## What you'll find here
-
-- **About:** background, interests, and academic journey.
-- **Experience:** industrial and hospital training, practical exposure, and skills.
-- **Projects:** academic, technical, and personal projects.
-- **Learning:** study notes, explainers, and structured learning resources.
-
-## Content architecture
-
-The learning material is maintained separately in the companion repository:
-
-- [content](https://github.com/milesmoraliis759/content)
-
-The portfolio is designed to consume that content repository as a Git submodule, keeping website presentation and educational content independently maintainable.
-
-When the submodule is configured, clone the project with:
-
+## Start locally
+Requirements: Node.js 20.9+.
 ```bash
 git clone --recurse-submodules https://github.com/milesmoraliis759/portfolio.git
+cd portfolio
+npm install
+npm run dev
 ```
+Open http://localhost:3000. For an existing clone: `git submodule update --init --recursive`.
 
-For an existing clone:
+## Add an article or lesson
+Create an `.mdx` file under `content/articles/` or `content/learning/` with frontmatter fields: `title`, `description`, `date`, `category`, `tags`, `readTime`, `level`, `featured` and `published`. Set `published: false` to keep a draft out of the public site.
 
-```bash
-git submodule update --init --recursive
-```
+## Routes
+- `/` home · `/about` about · `/experience` training · `/projects` projects
+- `/articles` articles · `/learning` learning library · `/contact` contact
+- `/articles/[...slug]` and `/learning/[...slug]` MDX content pages
 
-## Development
+## Before public launch
+1. Replace placeholder contact email and LinkedIn URL.
+2. Add a real profile photograph and project images if desired.
+3. Review experience details for accuracy and confidentiality.
+4. Configure deployment so the content submodule is available at build time.
+5. Add analytics or a contact form only with an appropriate privacy and delivery setup.
 
-The application framework and local development commands will be documented here once the website scaffold is in place.
-
-## Goals
-
-- Present my academic and professional portfolio clearly.
-- Publish useful pharmacy learning resources.
-- Organize content into topics and structured lessons.
-- Keep the site and its learning content modular and easy to maintain.
-
-## License
-
-Unless stated otherwise, the portfolio's original content is provided for personal and educational use. Please contact me before reusing it.
+Educational content is not personal medical advice. Scientific claims should include authoritative references and be checked before publication.
