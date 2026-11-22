@@ -18,6 +18,7 @@ export const metadata: Metadata = {
   openGraph: { type: "website", url: siteUrl, title: "Harsh Mishra — Pharmaceutical Sciences", description: "A pharmacy student's notebook of medicines, mechanisms and practical learning.", siteName: "Harsh Mishra", images: [{ url: "/opengraph-image", width: 1200, height: 630, alt: "Harsh Mishra — Pharmaceutical Sciences" }] },
   twitter: { card: "summary_large_image", title: "Harsh Mishra — Pharmaceutical Sciences", description: "A pharmacy student's notebook of medicines, mechanisms and practical learning." },
   icons: { icon: "/favicon.svg" },
+  manifest: "/site.webmanifest",
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
