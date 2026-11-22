@@ -265,3 +265,6 @@ p { margin-top: 0; }
   .profile-facts > :last-child { margin-left: 0; }
   .portrait-column { justify-self: start; }
 }
+
+
+.about-photo.portrait-placeholder { display: grid; place-items: center; background: radial-gradient(circle at 50% 35%, color-mix(in srgb,var(--accent) 17%,var(--surface-raised)), var(--surface-raised) 65%); }
