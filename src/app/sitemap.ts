@@ -1,7 +1,7 @@
 import type { MetadataRoute } from "next";
 import { getAllContent } from "@/lib/content";
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://example.com";
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const fixedRoutes = ["", "/about", "/experience", "/projects", "/articles", "/learning", "/contact"];
