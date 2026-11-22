@@ -2,14 +2,11 @@ import type { Metadata } from "next";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import "./globals.css";
-
-export const metadata: Metadata = {
-  title: { default: "Harsh Mishra | Pharmacy, Research & Learning", template: "%s | Harsh Mishra" },
-  description: "The personal portfolio and learning journal of Harsh Mishra — pharmaceutical sciences, industry experience and structured learning.",
-  icons: { icon: "/favicon.svg" },
-  ...(process.env.NEXT_PUBLIC_SITE_URL ? { metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL) } : {}),
+const siteUrl=process.env.NEXT_PUBLIC_SITE_URL??"https://harsh-mishra-pharmacy-mishraharsh759.vercel.app";
+export const metadata:Metadata={
+ title:{default:"Harsh Mishra | Pharmaceutical Sciences",template:"%s | Harsh Mishra"},
+ description:"Harsh Mishra — pharmacy student documenting pharmaceutical sciences, academic learning and practical training.",
+ metadataBase:new URL(siteUrl),
+ icons:{icon:"/favicon.svg"},
 };
-
-export default function RootLayout({ children }: { children: React.ReactNode }) {
-  return <html lang="en"><body><SiteHeader /><main>{children}</main><SiteFooter /></body></html>;
-}
+export default function RootLayout({children}:{children:React.ReactNode}){return <html lang="en"><body><SiteHeader/><main>{children}</main><SiteFooter/></body></html>}
