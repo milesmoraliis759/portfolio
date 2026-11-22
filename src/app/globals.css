@@ -240,3 +240,28 @@ p { margin-top: 0; }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; animation-duration: .01ms !important; }
 }
+
+
+/* Profile layout details */
+.profile-links { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 22px; }
+.profile-links a { display: inline-flex; align-items: center; gap: 6px; padding: 5px 9px; border: 1px solid var(--line); border-radius: 999px; color: var(--muted); font-size: 10px; transition: border-color .18s ease,color .18s ease,background .18s ease; }
+.profile-links a:hover { color: var(--ink); border-color: var(--subtle); background: var(--surface-raised); }
+.portrait-column { width: 230px; justify-self: end; }
+.portrait-placeholder { display: grid; place-items: center; background: radial-gradient(circle at 50% 35%, color-mix(in srgb,var(--accent) 17%,var(--surface-raised)), var(--surface-raised) 65%); }
+.portrait-placeholder:after { display: none; }
+.portrait-monogram { display: grid; place-items: center; width: 112px; height: 112px; border: 1px solid color-mix(in srgb,var(--accent) 48%,var(--line)); border-radius: 50%; color: var(--accent); font: italic 54px var(--serif); letter-spacing: -.08em; background: color-mix(in srgb,var(--bg) 35%,transparent); }
+.portrait-placeholder .portrait-caption { background: var(--surface); color: var(--ink); border-top: 1px solid var(--line); }
+.portrait-placeholder .portrait-caption small { color: var(--muted); }
+.portrait-location { color: var(--subtle); text-align: center; margin: 8px 0 0; }
+.profile-facts { display: flex; flex-wrap: wrap; align-items: center; gap: 0; margin-top: 38px; padding: 13px 0; border-block: 1px solid var(--line); color: var(--muted); font: 9px var(--mono); }
+.profile-facts > * { padding: 0 13px; border-right: 1px solid var(--line); }
+.profile-facts > :first-child { padding-left: 0; }
+.profile-facts > :last-child { border: 0; margin-left: auto; color: var(--accent); }
+.profile-facts a { display: inline-flex; align-items: center; gap: 5px; }
+@media (max-width: 680px) {
+  .profile-facts { gap: 8px 0; margin-top: 26px; }
+  .profile-facts > * { padding: 0 9px; }
+  .profile-facts > :first-child { padding-left: 0; }
+  .profile-facts > :last-child { margin-left: 0; }
+  .portrait-column { justify-self: start; }
+}
