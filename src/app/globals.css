@@ -240,3 +240,10 @@ p { margin-top: 0; }
 .search-result p { color:var(--muted); font-size:13px; margin:0 0 7px; }
 .search-result-meta { color:var(--subtle); font:10px var(--mono); }
 @media(max-width:700px) { .track-heading { align-items:flex-start; flex-direction:column; gap:8px; } .learning-method-grid { grid-template-columns:1fr; gap:18px; } }
+
+.skills-section { margin-top: 70px; padding-top: 28px; border-top: 1px solid var(--border); }
+.skills-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 12px; }
+.skills-grid article { border: 1px solid var(--border); background: var(--surface); border-radius: 7px; padding: 19px; }
+.skills-grid h3 { font-size: 21px; margin: 0 0 8px; }
+.skills-grid p { color: var(--muted); font-size: 12px; line-height: 1.8; }
+@media(max-width:700px) { .skills-grid { grid-template-columns: 1fr; } .skills-section { margin-top: 46px; } }
