@@ -6,6 +6,7 @@ import remarkGfm from "remark-gfm";
 import { getAllContent, getContentBySlug, type ContentKind } from "@/lib/content";
 import { ReadingProgress } from "@/components/reading-progress";
 import { Callout, Definition, DrugCard, Formula, ProcessFlow } from "@/components/pharmacy-mdx";
+import { StudyActions } from "@/components/study-tools";
 
 type Props = { params: Promise<{ kind: string; slug: string[] }> };
 export function generateStaticParams() {
@@ -30,5 +31,5 @@ export default async function ContentPage({ params }: Props) {
   const { content } = await compileMDX({ source: result.source, components: mdxComponents, options: { parseFrontmatter: true, mdxOptions: { remarkPlugins: [remarkGfm] } } });
   const { item } = result;
   const formattedDate = item.date ? new Intl.DateTimeFormat("en-IN", { day: "numeric", month: "short", year: "numeric" }).format(new Date(item.date)) : "Student notes";
-  return <article className="article-shell"><ReadingProgress/><header className="article-heading reading-container"><span className="tag">{item.kind === "articles" ? "Journal" : "Learning note"} · {item.category}</span><p className="eyebrow">{item.kind === "articles" ? "WRITING & REFLECTIONS" : "LEARNING STUDIO"} · {item.readTime}</p><h1>{item.title}</h1><p className="article-description">{item.description}</p><div className="article-meta"><span>{formattedDate}</span><span>{item.level ?? "Pharmacy learning"}</span></div></header><div className="mdx-prose">{content}</div><div className="article-end"><span>END OF NOTE</span><span>Educational material · Verify with standard references</span></div></article>;
+  return <article className="article-shell"><ReadingProgress/><header className="article-heading reading-container"><span className="tag">{item.kind === "articles" ? "Journal" : "Learning note"} · {item.category}</span><p className="eyebrow">{item.kind === "articles" ? "WRITING & REFLECTIONS" : "LEARNING STUDIO"} · {item.readTime}</p><h1>{item.title}</h1><p className="article-description">{item.description}</p><div className="article-meta"><span>{formattedDate}</span><span>{item.level ?? "Pharmacy learning"}</span></div><StudyActions item={{ slug: item.slug, title: item.title, category: item.category, href: `/${item.kind}/${item.slug.split("--").join("/")}` }}/></header><div className="mdx-prose">{content}</div><div className="article-end"><span>END OF NOTE</span><span>Educational material · Verify with standard references</span></div></article>;
 }
