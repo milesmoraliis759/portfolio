@@ -549,3 +549,18 @@ p { margin-top: 0; }
 .learning-explorer .empty-state { display: grid; justify-items: start; gap: 8px; }
 .learning-explorer .empty-state p { margin: 0; }
 .learning-explorer .empty-state button { margin-top: 8px; padding: 8px 12px; border: 1px solid var(--border); border-radius: 4px; background: transparent; color: var(--accent); cursor: pointer; }
+
+
+/* Contextual navigation keeps readers moving through a subject without returning to the index. */
+.content-pagination { margin: 34px auto 76px; }
+.content-pagination-home { display: inline-flex; margin-bottom: 18px; color: var(--accent); font-size: 12px; text-decoration: none; }
+.content-pagination-items { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 12px; }
+.content-pagination-items > a { display: grid; align-content: space-between; gap: 12px; min-height: 100px; padding: 16px; border: 1px solid var(--border); border-radius: 6px; color: var(--text); text-decoration: none; transition: border-color .15s ease,background .15s ease; }
+.content-pagination-items > a:hover { border-color: var(--accent); background: var(--surface); }
+.content-pagination-items > a:last-child { text-align: right; }
+.content-pagination-items > a span { color: var(--subtle); font: 9px var(--mono); letter-spacing: .07em; }
+.content-pagination-items > a strong { font: 500 16px var(--display); line-height: 1.35; }
+@media (max-width: 560px) {
+  .content-pagination-items { grid-template-columns: 1fr; }
+  .content-pagination-items > a:last-child { text-align: left; }
+}
