@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { ArrowUpRight, ClipboardCheck, Factory, Hospital, GraduationCap, FlaskConical } from "lucide-react";
+import { ArrowUpRight, Factory, Hospital, GraduationCap, FlaskConical } from "lucide-react";
 
 export const metadata: Metadata = {
   title: "Experience",

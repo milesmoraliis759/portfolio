@@ -531,3 +531,36 @@ p { margin-top: 0; }
   .portfolio-destination-copy strong { font-size: 19px; }
   .portfolio-destination-action { grid-column: 3; margin-top: 3px; }
 }
+
+
+/* Learning library discovery */
+.learning-explorer { margin-top: 26px; }
+.learning-explorer-tools { display: grid; gap: 14px; margin-bottom: 8px; }
+.learning-search { display: flex; align-items: center; gap: 12px; min-height: 52px; padding: 0 15px; border: 1px solid var(--border); border-radius: 6px; background: var(--surface); color: var(--muted); }
+.learning-search:focus-within { border-color: var(--accent); box-shadow: 0 0 0 3px color-mix(in srgb,var(--accent) 12%,transparent); }
+.learning-search input { width: 100%; min-width: 0; border: 0; outline: 0; background: transparent; color: var(--text); font: inherit; font-size: 13px; }
+.learning-search input::placeholder { color: var(--subtle); }
+.learning-search button { display: grid; place-items: center; width: 30px; height: 30px; border: 0; background: transparent; color: var(--muted); cursor: pointer; }
+.learning-filter-label { display: flex; align-items: center; gap: 7px; color: var(--subtle); font: 10px var(--mono); letter-spacing: .07em; }
+.learning-subject-filters { display: flex; flex-wrap: wrap; gap: 7px; }
+.learning-subject-filters button { min-height: 34px; padding: 6px 11px; border: 1px solid var(--border); border-radius: 999px; background: transparent; color: var(--muted); font: 11px var(--sans); cursor: pointer; transition: color .15s ease,border-color .15s ease,background .15s ease; }
+.learning-subject-filters button:hover,.learning-subject-filters button.is-active { border-color: var(--accent); background: color-mix(in srgb,var(--accent) 8%,transparent); color: var(--accent); }
+.learning-explorer .library-toolbar { margin-top: 21px; }
+.learning-explorer .empty-state { display: grid; justify-items: start; gap: 8px; }
+.learning-explorer .empty-state p { margin: 0; }
+.learning-explorer .empty-state button { margin-top: 8px; padding: 8px 12px; border: 1px solid var(--border); border-radius: 4px; background: transparent; color: var(--accent); cursor: pointer; }
+
+
+/* Contextual navigation keeps readers moving through a subject without returning to the index. */
+.content-pagination { margin: 34px auto 76px; }
+.content-pagination-home { display: inline-flex; margin-bottom: 18px; color: var(--accent); font-size: 12px; text-decoration: none; }
+.content-pagination-items { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 12px; }
+.content-pagination-items > a { display: grid; align-content: space-between; gap: 12px; min-height: 100px; padding: 16px; border: 1px solid var(--border); border-radius: 6px; color: var(--text); text-decoration: none; transition: border-color .15s ease,background .15s ease; }
+.content-pagination-items > a:hover { border-color: var(--accent); background: var(--surface); }
+.content-pagination-items > a:last-child { text-align: right; }
+.content-pagination-items > a span { color: var(--subtle); font: 9px var(--mono); letter-spacing: .07em; }
+.content-pagination-items > a strong { font: 500 16px var(--display); line-height: 1.35; }
+@media (max-width: 560px) {
+  .content-pagination-items { grid-template-columns: 1fr; }
+  .content-pagination-items > a:last-child { text-align: left; }
+}

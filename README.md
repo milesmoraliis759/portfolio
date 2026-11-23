@@ -11,6 +11,10 @@ npm install
 npm run dev
 ```
 
+## Save something to the portfolio
+
+When Harsh says **“add this to my notes”** or **“save this to my portfolio”**, use the capture instructions in the [content repository](https://github.com/milesmoraliis759/content/blob/main/SAVE_TO_PORTFOLIO.md). All learning notes and articles belong in the content repository, not directly in this Next.js source repository.
+
 ## Content publishing automation
 
 The `content` directory is a Git submodule pointing to https://github.com/milesmoraliis759/content.

@@ -1,8 +1,9 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useMemo } from "react";
 import { ArrowUpRight, Bookmark, BookmarkCheck, CheckCircle2, RotateCcw, Trash2 } from "lucide-react";
+import { useLocalStorageSnapshot, writeLocalStorageSnapshot } from "@/lib/local-storage";
 
 export type StudyItem = {
   slug: string;
@@ -16,47 +17,36 @@ type StoredStudyItem = StudyItem & { savedAt: string };
 const BOOKMARKS_KEY = "harsh-gpat-bookmarks-v1";
 const COMPLETED_KEY = "harsh-gpat-revised-v1";
 
-function readItems(key: string): StoredStudyItem[] {
+function parseItems(value: string | null): StoredStudyItem[] {
   try {
-    const value = window.localStorage.getItem(key);
-    const parsed: unknown = value ? JSON.parse(value) : [];
-    return Array.isArray(parsed) ? parsed.filter((item) => item && typeof item.slug === "string" && typeof item.title === "string") as StoredStudyItem[] : [];
+    const parsed: unknown = JSON.parse(value ?? "[]");
+    return Array.isArray(parsed)
+      ? parsed.filter((item) => item && typeof item.slug === "string" && typeof item.title === "string") as StoredStudyItem[]
+      : [];
   } catch {
     return [];
   }
 }
 
-function writeItems(key: string, items: StoredStudyItem[]) {
-  try {
-    window.localStorage.setItem(key, JSON.stringify(items));
-  } catch {
-    // Keep the current session usable if browser storage is unavailable.
-  }
-}
-
 export function StudyActions({ item }: { item: StudyItem }) {
-  const [bookmarked, setBookmarked] = useState(false);
-  const [revised, setRevised] = useState(false);
+  const bookmarksSnapshot = useLocalStorageSnapshot(BOOKMARKS_KEY);
+  const completedSnapshot = useLocalStorageSnapshot(COMPLETED_KEY);
+  const bookmarked = useMemo(() => parseItems(bookmarksSnapshot).some((entry) => entry.slug === item.slug), [bookmarksSnapshot, item.slug]);
+  const revised = useMemo(() => parseItems(completedSnapshot).some((entry) => entry.slug === item.slug), [completedSnapshot, item.slug]);
 
-  useEffect(() => {
-    setBookmarked(readItems(BOOKMARKS_KEY).some((entry) => entry.slug === item.slug));
-    setRevised(readItems(COMPLETED_KEY).some((entry) => entry.slug === item.slug));
-  }, [item.slug]);
-
-  function toggle(key: string, active: boolean, setActive: (value: boolean) => void) {
-    const entries = readItems(key).filter((entry) => entry.slug !== item.slug);
+  function toggle(key: string, snapshot: string | null, active: boolean) {
+    const entries = parseItems(snapshot).filter((entry) => entry.slug !== item.slug);
     if (!active) entries.unshift({ ...item, savedAt: new Date().toISOString() });
-    writeItems(key, entries);
-    setActive(!active);
+    writeLocalStorageSnapshot(key, JSON.stringify(entries));
   }
 
   return (
     <div className="study-actions" aria-label="Study tracking">
-      <button type="button" className={`study-action ${bookmarked ? "is-active" : ""}`} onClick={() => toggle(BOOKMARKS_KEY, bookmarked, setBookmarked)} aria-pressed={bookmarked}>
+      <button type="button" className={`study-action ${bookmarked ? "is-active" : ""}`} onClick={() => toggle(BOOKMARKS_KEY, bookmarksSnapshot, bookmarked)} aria-pressed={bookmarked}>
         {bookmarked ? <BookmarkCheck size={15}/> : <Bookmark size={15}/>}
         {bookmarked ? "Saved for revision" : "Save for revision"}
       </button>
-      <button type="button" className={`study-action ${revised ? "is-active" : ""}`} onClick={() => toggle(COMPLETED_KEY, revised, setRevised)} aria-pressed={revised}>
+      <button type="button" className={`study-action ${revised ? "is-active" : ""}`} onClick={() => toggle(COMPLETED_KEY, completedSnapshot, revised)} aria-pressed={revised}>
         <CheckCircle2 size={15}/>
         {revised ? "Revised" : "Mark as revised"}
       </button>
@@ -89,26 +79,18 @@ function StudyList({ title, items, empty, onRemove, onToggle }: {
 }
 
 export function RevisionDashboard() {
-  const [bookmarks, setBookmarks] = useState<StoredStudyItem[]>([]);
-  const [completed, setCompleted] = useState<StoredStudyItem[]>([]);
-  const [loaded, setLoaded] = useState(false);
-
-  useEffect(() => {
-    setBookmarks(readItems(BOOKMARKS_KEY));
-    setCompleted(readItems(COMPLETED_KEY));
-    setLoaded(true);
-  }, []);
+  const bookmarksSnapshot = useLocalStorageSnapshot(BOOKMARKS_KEY);
+  const completedSnapshot = useLocalStorageSnapshot(COMPLETED_KEY);
+  const bookmarks = useMemo(() => parseItems(bookmarksSnapshot), [bookmarksSnapshot]);
+  const completed = useMemo(() => parseItems(completedSnapshot), [completedSnapshot]);
+  const loaded = bookmarksSnapshot !== null && completedSnapshot !== null;
 
   function removeBookmark(slug: string) {
-    const next = bookmarks.filter((item) => item.slug !== slug);
-    setBookmarks(next);
-    writeItems(BOOKMARKS_KEY, next);
+    writeLocalStorageSnapshot(BOOKMARKS_KEY, JSON.stringify(bookmarks.filter((item) => item.slug !== slug)));
   }
 
   function markNotRevised(item: StoredStudyItem) {
-    const next = completed.filter((entry) => entry.slug !== item.slug);
-    setCompleted(next);
-    writeItems(COMPLETED_KEY, next);
+    writeLocalStorageSnapshot(COMPLETED_KEY, JSON.stringify(completed.filter((entry) => entry.slug !== item.slug)));
   }
 
   return (

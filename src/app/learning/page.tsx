@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowUpRight, BookOpenCheck, GraduationCap, ClipboardList, FileText, RotateCcw } from "lucide-react";
-import { ContentCard } from "@/components/content-card";
+import { LearningExplorer } from "@/components/learning-explorer";
 import { getAllContent } from "@/lib/content";
 
 export const metadata: Metadata = {
@@ -9,18 +9,9 @@ export const metadata: Metadata = {
   description: "Clear, student-written revision notes across pharmaceutical sciences.",
 };
 
-const subjectDescriptions: Record<string, string> = {
-  Pharmaceutics: "Dosage forms, formulation science, granulation, tablet manufacture and quality testing.",
-  "Physical Pharmacy": "Powder properties, surface and interfacial phenomena, solubility and formulation fundamentals.",
-  "Pharmaceutical Analysis": "Analytical methods, instrumentation and pharmaceutical quality evaluation.",
-  Pharmacology: "Drug actions, mechanisms, therapeutic classes and pharmacological principles.",
-  "Medicinal Chemistry": "Drug structures, structure–activity relationships and chemical properties.",
-  Pharmacognosy: "Natural drugs, crude drug evaluation and plant-derived constituents.",
-};
-
 export default function LearningPage() {
   const items = getAllContent("learning");
-  const groups = Array.from(new Set(items.map((item) => item.category))).sort();
+
   return (
     <section className="page-shell container">
       <div className="section-kicker"><span>01</span> / THE LEARNING STUDIO</div>
@@ -43,20 +34,7 @@ export default function LearningPage() {
         <Link href="/pyqs"><FileText size={17}/><span><strong>Previous-year questions</strong><small>Source-based GPAT practice</small></span><ArrowUpRight size={14}/></Link>
         <Link href="/revision"><RotateCcw size={17}/><span><strong>Revision desk</strong><small>Your saved and revised notes</small></span><ArrowUpRight size={14}/></Link>
       </div>
-      <div className="library-toolbar">
-        <span>{items.length} PUBLISHED {items.length === 1 ? "NOTE" : "NOTES"}</span>
-        <span>{groups.length} SUBJECT {groups.length === 1 ? "TRACK" : "TRACKS"}</span>
-      </div>
-      {items.length ? groups.map((group) => {
-        const trackItems = items.filter((item) => item.category === group);
-        return <section className="library-group" key={group}>
-          <div className="track-heading">
-            <div><p className="eyebrow">SUBJECT TRACK</p><h2>{group}</h2><p>{subjectDescriptions[group] ?? "Study notes and explanations from this area of pharmaceutical sciences."}</p></div>
-            <span className="track-count">{String(trackItems.length).padStart(2, "0")} NOTES</span>
-          </div>
-          <div className="content-grid">{trackItems.map((item, index) => <ContentCard item={item} index={index} key={item.slug}/>)}</div>
-        </section>;
-      }) : <div className="empty-state">No learning notes have been published yet. New topics will appear here when they are ready.</div>}
+      <LearningExplorer items={items}/>
       <div className="learning-method">
         <div className="section-kicker"><span>02</span> / HOW TO USE THIS LIBRARY</div>
         <div className="learning-method-grid">

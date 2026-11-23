@@ -8,7 +8,7 @@ export function SiteFooter() {
         <div className="footer-main">
           <p className="eyebrow">PHARMACEUTICAL SCIENCES · LEARNING JOURNAL</p>
           <h2>Keep asking <em>why.</em></h2>
-          <p className="footer-copy">A student's notebook of medicines, mechanisms and the practical work behind healthcare.</p>
+          <p className="footer-copy">A student’s notebook of medicines, mechanisms and the practical work behind healthcare.</p>
         </div>
         <div className="footer-links">
           <Link href="mailto:mishraharsh759@gmail.com"><Mail size={15}/> Email</Link>
