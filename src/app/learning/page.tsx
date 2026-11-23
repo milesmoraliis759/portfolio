@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { ArrowUpRight, BookOpenCheck, GraduationCap } from "lucide-react";
+import { ArrowUpRight, BookOpenCheck, GraduationCap, ClipboardList, FileText, RotateCcw } from "lucide-react";
 import { ContentCard } from "@/components/content-card";
 import { getAllContent } from "@/lib/content";
 
@@ -38,7 +38,11 @@ export default function LearningPage() {
         <div><strong>Learn the concept. Then revise the detail.</strong><p>Use these notes alongside standard textbooks, pharmacopoeias and course material.</p></div>
         <BookOpenCheck size={26}/>
       </div>
-      <div className="revision-shortcut"><span>STUDY SMARTER</span><Link href="/revision">Open your revision desk <ArrowUpRight size={14}/></Link></div>
+      <div className="learning-tools" aria-label="Study tools">
+        <Link href="/practice"><ClipboardList size={17}/><span><strong>Practice quiz</strong><small>40 concept questions</small></span><ArrowUpRight size={14}/></Link>
+        <Link href="/pyqs"><FileText size={17}/><span><strong>Previous-year questions</strong><small>Source-based GPAT practice</small></span><ArrowUpRight size={14}/></Link>
+        <Link href="/revision"><RotateCcw size={17}/><span><strong>Revision desk</strong><small>Your saved and revised notes</small></span><ArrowUpRight size={14}/></Link>
+      </div>
       <div className="library-toolbar">
         <span>{items.length} PUBLISHED {items.length === 1 ? "NOTE" : "NOTES"}</span>
         <span>{groups.length} SUBJECT {groups.length === 1 ? "TRACK" : "TRACKS"}</span>
