@@ -1,126 +1,107 @@
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight, ArrowUpRight, BookOpen, BriefcaseMedical, GraduationCap, Microscope, MoveUpRight } from "lucide-react";
-import { ContentCard } from "@/components/content-card";
-import { QuickCheck } from "@/components/quick-check";
-import { getAllContent, getFeaturedContent } from "@/lib/content";
+import { ArrowUpRight, BookOpen, BriefcaseMedical, FileText, GraduationCap, Microscope } from "lucide-react";
 
-const interests = [
-  { icon: Microscope, title: "Pharmaceutical sciences", text: "Pharmacology, pharmaceutics, medicinal chemistry and the science behind medicines.", href: "/learning" },
-  { icon: BriefcaseMedical, title: "Industry & healthcare", text: "What production floors, quality systems and patient-facing practice can teach us.", href: "/experience" },
-  { icon: GraduationCap, title: "Learning in public", text: "Clear notes, useful explanations and reflections from a pharmacy student.", href: "/articles" },
+const destinations = [
+  {
+    number: "01",
+    icon: Microscope,
+    title: "Learning notes",
+    description: "My B.Pharm study notes, concept explanations and GPAT-focused learning material.",
+    href: "/learning",
+    action: "Explore learning",
+  },
+  {
+    number: "02",
+    icon: FileText,
+    title: "Articles",
+    description: "Longer explainers, study reflections and things I have learned along the way.",
+    href: "/articles",
+    action: "Read articles",
+  },
+  {
+    number: "03",
+    icon: BriefcaseMedical,
+    title: "Experience",
+    description: "Industrial training, hospital exposure and the practical side of pharmacy.",
+    href: "/experience",
+    action: "View experience",
+  },
+  {
+    number: "04",
+    icon: GraduationCap,
+    title: "About me",
+    description: "My academic background, interests and the direction I am working towards.",
+    href: "/about",
+    action: "More about me",
+  },
 ];
 
 export default function HomePage() {
-  const learning = getAllContent("learning").slice(0, 2);
-  const writing = getAllContent("articles").slice(0, 2);
-  const featured = getFeaturedContent();
-  const total = getAllContent().length;
-
   return (
-    <>
-      <section className="medical-hero container">
-        <div className="medical-hero-grid">
-          <div className="medical-hero-copy">
-            <div className="availability"><span className="pulse" /> PHARMACEUTICAL SCIENCES · B.PHARM</div>
-            <p className="eyebrow">A STUDENT NOTEBOOK · INDIA</p>
-            <h1>Hey, I&apos;m Harsh.<br /><em>Learning how medicines work,</em><br />one mechanism at a time.</h1>
-            <p className="hero-lede">
-              I&apos;m a Bachelor of Pharmacy student interested in medicines, the science behind them,
-              and the people they ultimately serve. This is my notebook: clear study notes, short
-              essays and lessons from practical training.
+    <main>
+      <section className="portfolio-home container">
+        <div className="portfolio-home-intro">
+          <div className="portfolio-home-copy">
+            <p className="eyebrow"><span className="portfolio-status-dot" /> BACHELOR OF PHARMACY · INDIA</p>
+            <h1>Harsh Mishra<span>.</span></h1>
+            <p className="portfolio-home-role">B.Pharm student · Pharmaceutical sciences · Lifelong learner</p>
+            <p className="portfolio-home-summary">
+              I’m a pharmacy student interested in understanding how medicines work,
+              how they are developed and how quality is built into the products
+              people rely on. I use this space to document what I’m learning and
+              the experiences shaping my journey in pharmacy.
             </p>
-            <div className="hero-actions">
-              <Link href="/learning" className="button button-primary">Explore learning notes <ArrowRight size={15}/></Link>
-              <Link href="/about" className="button button-quiet">A little about me <ArrowUpRight size={15}/></Link>
+            <div className="portfolio-home-links">
+              <Link href="/about" className="button button-primary">More about me <ArrowUpRight size={15}/></Link>
+              <Link href="/experience" className="button button-quiet">My experience <ArrowUpRight size={15}/></Link>
             </div>
           </div>
-          <div className="portrait-column">
-            <div className="portrait-frame">
-              <Image src="/IMG20250526115110.jpg" alt="Harsh Mishra" fill priority sizes="(max-width: 700px) 230px, 238px" className="portrait-image" />
-              <div className="portrait-caption"><span><strong>Harsh Mishra</strong><small>Pharmacy student · India</small></span></div>
+          <div className="portfolio-home-portrait">
+            <div className="portfolio-home-photo">
+              <Image src="/IMG20250526115110.jpg" alt="Harsh Mishra" fill priority sizes="(max-width: 700px) 250px, 300px" />
             </div>
-            <p className="portrait-location">B.PHARM · 2023—2027</p>
+            <p>B.PHARM · 2023—2027</p>
           </div>
         </div>
-        <div className="profile-facts">
-          <span>B.Pharm · 2023–27</span>
-          <span>Industrial training · Samson Laboratories</span>
-          <span>Postgraduate direction · M.Pharm / NIPER</span>
-          <Link href="/experience">My journey <ArrowUpRight size={13}/></Link>
+
+        <div className="portfolio-home-meta" aria-label="Academic profile">
+          <span>Bachelor of Pharmacy · 2023–2027</span>
+          <span>Pharmaceutical sciences</span>
+          <span>GPAT / NIPER preparation</span>
         </div>
       </section>
 
-      <section className="section container">
-        <div className="section-kicker"><span>01</span> / WHAT THIS SPACE IS</div>
-        <div className="intro-grid">
-          <h2>A notebook for<br /><em>curious minds.</em></h2>
-          <div>
-            <p className="large-copy">
-              Pharmacy sits at the meeting point of chemistry, biology, technology and care.
-              I&apos;m learning to connect those pieces — from a drug&apos;s molecular structure
-              to its formulation, quality and place in patient care.
-            </p>
-            <Link href="/about" className="underlined-link">More about my approach <MoveUpRight size={15}/></Link>
-          </div>
-        </div>
-      </section>
-
-      <section className="section focus-section">
+      <section className="portfolio-destinations">
         <div className="container">
-          <div className="section-heading">
-            <div><div className="section-kicker"><span>02</span> / EXPLORE</div><h2>Follow a thread of <em>curiosity.</em></h2></div>
-            <p className="max-copy">Three ways to explore my academic and practical learning.</p>
+          <div className="portfolio-destinations-heading">
+            <div>
+              <p className="eyebrow">EXPLORE THIS SPACE</p>
+              <h2>A little about my<br/><em>work and learning.</em></h2>
+            </div>
+            <p>Choose a section to explore my academic work, writing and experiences in pharmacy.</p>
           </div>
-          <div className="focus-grid">
-            {interests.map((item, index) => <article className="focus-card" key={item.title}>
-              <span className="focus-number">0{index + 1}</span><item.icon size={23} strokeWidth={1.5}/>
-              <h3>{item.title}</h3><p>{item.text}</p>
-              <Link href={item.href} aria-label={`Explore ${item.title}`}><ArrowUpRight size={17}/></Link>
-            </article>)}
+
+          <div className="portfolio-destination-list">
+            {destinations.map((item) => (
+              <Link className="portfolio-destination" href={item.href} key={item.href}>
+                <span className="portfolio-destination-number">{item.number}</span>
+                <item.icon className="portfolio-destination-icon" size={21} strokeWidth={1.6}/>
+                <span className="portfolio-destination-copy">
+                  <strong>{item.title}</strong>
+                  <small>{item.description}</small>
+                </span>
+                <span className="portfolio-destination-action">{item.action} <ArrowUpRight size={15}/></span>
+              </Link>
+            ))}
           </div>
         </div>
       </section>
 
-      <section className="section container">
-        <div className="section-heading">
-          <div><div className="section-kicker"><span>03</span> / LEARNING STUDIO</div><h2>Understand first.<br /><em>Memorise later.</em></h2></div>
-          <Link href="/learning" className="underlined-link">All learning notes <MoveUpRight size={15}/></Link>
-        </div>
-        {learning.length ? <div className="content-grid">{learning.map((item, i) => <ContentCard item={item} index={i} key={item.slug}/>)}</div> : <div className="empty-state"><BookOpen size={20}/> New study notes will appear here as they are published.</div>}
+      <section className="portfolio-home-note container">
+        <BookOpen size={18}/>
+        <p>This is a personal portfolio and a record of my development as a pharmacy student. The detailed notes, quizzes and study resources live in the learning section.</p>
       </section>
-
-      <section className="section focus-section">
-        <div className="container">
-          <div className="section-heading">
-            <div><div className="section-kicker"><span>04</span> / TEST YOUR UNDERSTANDING</div><h2>A small question.<br/><em>A stronger concept.</em></h2></div>
-            <p className="max-copy">A short practice check to make active recall part of the learning experience.</p>
-          </div>
-          <QuickCheck
-            question="Which of the following is a commonly used superdisintegrant in tablets?"
-            options={["Croscarmellose sodium", "Lactose", "Magnesium stearate", "Talc"]}
-            answer={0}
-            explanation="Croscarmellose sodium is a cross-linked cellulose derivative. It promotes rapid tablet breakup by swelling and wicking water into the tablet. This is a practice question, not a previous-year question."
-          />
-          <div className="text-center"><Link href="/practice" className="underlined-link">Explore the full practice quiz <ArrowUpRight size={15}/></Link></div>
-        </div>
-      </section>
-
-      <section className="journal-band">
-        <div className="container journal-inner">
-          <div><p className="eyebrow">THE WRITING DESK</p><h2>Learning becomes clearer<br />when you <em>write it down.</em></h2><p className="journal-copy">Short explainers, longer reflections and practical observations from pharmaceutical sciences.</p></div>
-          <Link href="/articles" className="round-link">Read the journal <ArrowUpRight size={18}/></Link>
-        </div>
-      </section>
-
-      <section className="section container latest-section">
-        <div className="section-heading">
-          <div><div className="section-kicker"><span>05</span> / RECENT WRITING</div><h2>Notes from the <em>field.</em></h2></div>
-          <Link href="/articles" className="underlined-link">All articles <MoveUpRight size={15}/></Link>
-        </div>
-        {writing.length ? <div className="content-grid">{writing.map((item, i) => <ContentCard item={item} index={i} key={item.slug}/>)}</div> : <div className="empty-state">Articles will appear here as they are published.</div>}
-        <p className="fine-print">{total} published pieces across the learning library and journal. The collection grows as I learn.</p>
-      </section>
-    </>
+    </main>
   );
 }
