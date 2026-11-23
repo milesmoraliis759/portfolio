@@ -358,3 +358,8 @@ p { margin-top: 0; }
 .revision-empty { padding:17px; border:1px dashed var(--border); border-radius:6px; color:var(--muted); font-size:12px; }
 .revision-privacy { margin-top:34px; color:var(--subtle); font-size:11px; line-height:1.7; }
 @media(max-width:600px) { .study-actions { display:grid; grid-template-columns:1fr; } .revision-item { align-items:flex-start; } .revision-item-copy h3 { font-size:17px; } .revision-icon-button,.revision-open { width:31px; height:31px; } }
+
+.revision-shortcut { display:flex; align-items:center; justify-content:space-between; gap:12px; margin:0 0 20px; padding:13px 0; border-bottom:1px solid var(--border); }
+.revision-shortcut > span { color:var(--subtle); font:10px var(--mono); letter-spacing:.06em; }
+.revision-shortcut a { display:inline-flex; align-items:center; gap:6px; color:var(--accent); font-size:12px; }
+@media(max-width:600px) { .revision-shortcut { align-items:flex-start; flex-direction:column; gap:7px; } }
