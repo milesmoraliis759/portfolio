@@ -10,7 +10,8 @@ export const metadata: Metadata = {
 };
 
 const subjectDescriptions: Record<string, string> = {
-  Pharmaceutics: "Dosage forms, formulation science, physical pharmacy and quality testing.",
+  Pharmaceutics: "Dosage forms, formulation science, granulation, tablet manufacture and quality testing.",
+  "Physical Pharmacy": "Powder properties, surface and interfacial phenomena, solubility and formulation fundamentals.",
   "Pharmaceutical Analysis": "Analytical methods, instrumentation and pharmaceutical quality evaluation.",
   Pharmacology: "Drug actions, mechanisms, therapeutic classes and pharmacological principles.",
   "Medicinal Chemistry": "Drug structures, structure–activity relationships and chemical properties.",
