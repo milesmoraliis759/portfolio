@@ -17,7 +17,7 @@ export function QuickCheck({ question, options, answer, explanation }: Props) {
 
   return (
     <section className="quick-check" aria-label="Knowledge check">
-      <div className="quick-check-kicker">QUICK KNOWLEDGE CHECK</div>
+      <div className="quick-check-kicker">PRACTICE QUESTION · CONCEPT CHECK</div>
       <h3>{question}</h3>
       <div className="quick-check-options">
         {options.map((option, index) => {
