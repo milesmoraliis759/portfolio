@@ -38,6 +38,7 @@ export default function LearningPage() {
         <div><strong>Learn the concept. Then revise the detail.</strong><p>Use these notes alongside standard textbooks, pharmacopoeias and course material.</p></div>
         <BookOpenCheck size={26}/>
       </div>
+      <div className="revision-shortcut"><span>STUDY SMARTER</span><Link href="/revision">Open your revision desk <ArrowUpRight size={14}/></Link></div>
       <div className="library-toolbar">
         <span>{items.length} PUBLISHED {items.length === 1 ? "NOTE" : "NOTES"}</span>
         <span>{groups.length} SUBJECT {groups.length === 1 ? "TRACK" : "TRACKS"}</span>
