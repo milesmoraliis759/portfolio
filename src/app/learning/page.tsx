@@ -9,15 +9,6 @@ export const metadata: Metadata = {
   description: "Clear, student-written revision notes across pharmaceutical sciences.",
 };
 
-const subjectDescriptions: Record<string, string> = {
-  Pharmaceutics: "Dosage forms, formulation science, granulation, tablet manufacture and quality testing.",
-  "Physical Pharmacy": "Powder properties, surface and interfacial phenomena, solubility and formulation fundamentals.",
-  "Pharmaceutical Analysis": "Analytical methods, instrumentation and pharmaceutical quality evaluation.",
-  Pharmacology: "Drug actions, mechanisms, therapeutic classes and pharmacological principles.",
-  "Medicinal Chemistry": "Drug structures, structure–activity relationships and chemical properties.",
-  Pharmacognosy: "Natural drugs, crude drug evaluation and plant-derived constituents.",
-};
-
 export default function LearningPage() {
   const items = getAllContent("learning");
 
@@ -42,10 +33,6 @@ export default function LearningPage() {
         <Link href="/practice"><ClipboardList size={17}/><span><strong>Practice quiz</strong><small>40 concept questions</small></span><ArrowUpRight size={14}/></Link>
         <Link href="/pyqs"><FileText size={17}/><span><strong>Previous-year questions</strong><small>Source-based GPAT practice</small></span><ArrowUpRight size={14}/></Link>
         <Link href="/revision"><RotateCcw size={17}/><span><strong>Revision desk</strong><small>Your saved and revised notes</small></span><ArrowUpRight size={14}/></Link>
-      </div>
-      <div className="library-toolbar">
-        <span>{items.length} PUBLISHED {items.length === 1 ? "NOTE" : "NOTES"}</span>
-        <span>{groups.length} SUBJECT {groups.length === 1 ? "TRACK" : "TRACKS"}</span>
       </div>
       <LearningExplorer items={items}/>
       <div className="learning-method">
