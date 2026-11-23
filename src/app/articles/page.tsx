@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { ContentItem, getAllContent } from "@/lib/content";
+import { getAllContent } from "@/lib/content";
 import { ArticleExplorer } from "@/components/article-explorer";
 
 export const metadata: Metadata = {
