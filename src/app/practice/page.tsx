@@ -5,7 +5,7 @@ import { PracticeQuiz } from "./quiz-client";
 
 export const metadata: Metadata = {
   title: "GPAT Practice",
-  description: "A mixed-subject interactive practice set for B.Pharm and GPAT revision.",
+  description: "A 40-question mixed-subject question bank with instant practice and timed GPAT mock modes.",
 };
 
 export default function PracticePage() {
@@ -20,7 +20,7 @@ export default function PracticePage() {
       <div className="practice-intro">
         <BookOpenCheck size={22}/>
         <p><strong>Practice Questions — not official PYQs.</strong><br/>Switch between instant-feedback practice and a timed mock test. Filter the question bank by subject and review every explanation after submission.</p>
-        <span>16 QUESTIONS</span>
+        <span>40 QUESTIONS</span>
       </div>
       <PracticeQuiz />
       <div className="practice-footer">
