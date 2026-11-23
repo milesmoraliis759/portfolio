@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { ArrowUpRight, Bookmark, BookmarkCheck, CheckCircle2, Circle, RotateCcw, Trash2 } from "lucide-react";
+import { ArrowUpRight, Bookmark, BookmarkCheck, CheckCircle2, RotateCcw, Trash2 } from "lucide-react";
 
 export type StudyItem = {
   slug: string;
