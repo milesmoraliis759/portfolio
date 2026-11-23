@@ -20,7 +20,7 @@ export default function PracticePage() {
       <div className="practice-intro">
         <BookOpenCheck size={22}/>
         <p><strong>Practice Questions — not official PYQs.</strong><br/>This starter set is designed to check core concepts across major B.Pharm subjects.</p>
-        <span>12 QUESTIONS</span>
+        <span>16 QUESTIONS</span>
       </div>
       <PracticeQuiz />
       <div className="practice-footer">
