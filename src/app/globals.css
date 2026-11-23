@@ -379,3 +379,49 @@ p { margin-top: 0; }
 
 .pyq-source-note { align-items:flex-start; }
 .pyq-source-note p { max-width:640px; }
+
+/* UX: concise primary navigation and discovery controls */
+.main-nav { gap: 27px; }
+.main-nav a { white-space: nowrap; }
+.article-explorer { max-width: 760px; margin: 0 0 26px; }
+.article-search { display:flex; align-items:center; gap:11px; min-height:48px; padding:0 14px; border:1px solid var(--border); border-radius:6px; background:var(--surface); color:var(--muted); }
+.article-search input { width:100%; min-width:0; border:0; outline:0; background:transparent; color:var(--text); font-size:13px; }
+.article-search input::placeholder { color:var(--subtle); }
+.article-filter-label { display:flex; align-items:center; gap:7px; margin:18px 0 9px; color:var(--subtle); font:10px var(--mono); letter-spacing:.06em; }
+.article-filters { display:flex; flex-wrap:wrap; gap:7px; }
+.article-filters button { min-height:32px; padding:6px 11px; border:1px solid var(--border); border-radius:30px; background:var(--surface); color:var(--muted); font-size:11px; cursor:pointer; }
+.article-filters button:hover,.article-filters button.is-active { border-color:var(--accent); background:var(--accent-soft); color:var(--accent); }
+.learning-tools { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:10px; margin:18px 0 28px; }
+.learning-tools a { display:flex; align-items:center; gap:10px; min-width:0; padding:13px; border:1px solid var(--border); border-radius:6px; background:var(--surface); color:var(--accent); transition:border-color .15s ease,transform .15s ease; }
+.learning-tools a:hover { border-color:var(--accent); transform:translateY(-2px); }
+.learning-tools a span { display:grid; min-width:0; flex:1; }
+.learning-tools strong { color:var(--text); font-size:11px; }
+.learning-tools small { color:var(--muted); font-size:10px; line-height:1.5; }
+.quick-check { max-width:720px; margin:30px auto; padding:22px; border:1px solid var(--border); border-radius:8px; background:var(--surface); }
+.quick-check-kicker { color:var(--accent); font:10px var(--mono); letter-spacing:.07em; }
+.quick-check h3 { margin:12px 0 17px; font-size:23px; line-height:1.3; }
+.quick-check-options { display:grid; gap:8px; }
+.quick-check-option { display:flex; align-items:center; gap:11px; width:100%; min-height:45px; padding:9px 12px; text-align:left; border:1px solid var(--border); border-radius:5px; background:var(--bg); color:var(--text); cursor:pointer; }
+.quick-check-option > span:first-child { display:grid; place-items:center; width:25px; height:25px; flex:0 0 25px; border:1px solid var(--border); border-radius:50%; color:var(--muted); font:10px var(--mono); }
+.quick-check-option > span:nth-child(2) { flex:1; font-size:12px; }
+.quick-check-option.selected { border-color:var(--accent); background:var(--accent-soft); }
+.quick-check-option.correct { border-color:#39856c; background:color-mix(in srgb,#39856c 9%,var(--surface)); }
+.quick-check-option.incorrect { border-color:#c65b4b; background:color-mix(in srgb,#c65b4b 8%,var(--surface)); }
+.quick-check-option:disabled { cursor:default; opacity:1; }
+.quick-check-hint { margin:12px 0 0; color:var(--subtle); font-size:11px; }
+.quick-check-feedback { margin-top:14px; padding:12px 14px; border-left:3px solid var(--accent); background:var(--surface-2); font-size:12px; }
+.quick-check-feedback.is-incorrect { border-left-color:#c65b4b; }
+.quick-check-feedback p { margin:5px 0 0; color:var(--muted); line-height:1.7; }
+.quick-check-actions { display:flex; align-items:center; gap:12px; margin-top:14px; }
+.quick-check-submit,.quick-check-reset { display:inline-flex; align-items:center; gap:7px; min-height:36px; padding:7px 12px; border:1px solid var(--border); border-radius:5px; background:var(--surface); color:var(--text); font-size:11px; cursor:pointer; }
+.quick-check-submit { background:#176b61; border-color:#176b61; color:#fff; }
+.quick-check-submit:disabled { opacity:.4; cursor:not-allowed; }
+.quick-check-reset { color:var(--accent); }
+@media(max-width:700px) {
+ .main-nav { gap:clamp(12px,4vw,20px); }
+ .learning-tools { grid-template-columns:1fr; }
+ .learning-tools a { padding:12px 14px; }
+ .article-filters { flex-wrap:nowrap; overflow-x:auto; padding:2px 1px 8px; scrollbar-width:thin; }
+ .article-filters button { flex:0 0 auto; }
+ .quick-check { padding:16px; }
+}
