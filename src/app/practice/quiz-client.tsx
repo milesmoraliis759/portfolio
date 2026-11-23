@@ -13,7 +13,7 @@ type Question = {
 };
 
 const questions: Question[] = [
-  { id: 1, subject: "Pharmaceutics", prompt: "Which excipient primarily reduces friction between the tablet and die wall during ejection?", options: ["Binder", "Lubricant", "Disintegrant", "Dilu ent".replace(" ", "")], answer: 1, explanation: "Lubricants reduce die-wall friction. Magnesium stearate is a commonly used tablet lubricant." },
+  { id: 1, subject: "Pharmaceutics", prompt: "Which excipient primarily reduces friction between the tablet and die wall during ejection?", options: ["Binder", "Lubricant", "Disintegrant", "Diluent"], answer: 1, explanation: "Lubricants reduce die-wall friction. Magnesium stearate is a commonly used tablet lubricant." },
   { id: 2, subject: "Pharmaceutics", prompt: "Which equipment is commonly used to dry wet granules?", options: ["Multimill", "Friabilator", "Fluid bed dryer", "Dissolution tester"], answer: 2, explanation: "A fluid bed dryer passes conditioned air through the granules, supporting heat and mass transfer." },
   { id: 3, subject: "Physical Pharmacy", prompt: "When the salt-to-acid ratio in an acidic buffer is 1, the pH equals:", options: ["7", "pKb", "pKa", "14"], answer: 2, explanation: "By Henderson–Hasselbalch, pH = pKa + log(1), and log(1) is zero." },
   { id: 4, subject: "Pharmacology", prompt: "Enalapril lowers blood pressure primarily by inhibiting:", options: ["Renin", "ACE", "AT1 receptor", "Aldosterone receptor"], answer: 1, explanation: "Enalapril is an ACE inhibitor. It reduces conversion of angiotensin I to angiotensin II." },
@@ -25,7 +25,12 @@ const questions: Question[] = [
   { id: 10, subject: "Industrial Pharmacy", prompt: "Which qualification stage documents that equipment is installed according to specification?", options: ["OQ", "PQ", "IQ", "Process validation"], answer: 2, explanation: "Installation Qualification (IQ) verifies and documents that equipment is installed as specified." },
   { id: 11, subject: "Pharmaceutics", prompt: "Which test evaluates a tablet's resistance to abrasion and shock during handling?", options: ["Friability", "Disintegration", "Content uniformity", "Dissolution"], answer: 0, explanation: "The friability test evaluates mass loss from tablets exposed to a defined tumbling / abrasion procedure." },
   { id: 12, subject: "Pharmaceutical Analysis", prompt: "In the Beer–Lambert equation A = εbc, absorbance is directly proportional to:", options: ["Concentration and path length", "Transmittance", "Stray light", "Only wavelength"], answer: 0, explanation: "At a fixed wavelength and under ideal conditions, absorbance is proportional to concentration and optical path length." },
-];
+
+  { id: 13, subject: "Biopharmaceutics", prompt: "Which pharmacokinetic parameter is most directly associated with the extent of systemic exposure?", options: ["Tmax", "AUC", "Tablet friability", "Disintegration time"], answer: 1, explanation: "AUC represents total systemic exposure over the measured concentration–time interval." },
+  { id: 14, subject: "Pharmaceutical Microbiology", prompt: "What is the principal sterilising agent in an autoclave?", options: ["Dry air", "Saturated steam", "UV radiation", "Ethylene oxide"], answer: 1, explanation: "Autoclaving uses saturated steam under pressure to deliver moist heat effectively." },
+  { id: 15, subject: "Pharmaceutical Biotechnology", prompt: "Which PCR step allows primers to bind complementary DNA sequences?", options: ["Denaturation", "Annealing", "Extension", "Elution"], answer: 1, explanation: "During annealing, the temperature is lowered to allow primers to hybridise with the template." },
+  { id: 16, subject: "Pharmaceutical Jurisprudence", prompt: "Which schedule is associated with GMP requirements for Ayurvedic, Siddha and Unani medicines?", options: ["Schedule M", "Schedule N", "Schedule T", "Schedule P"], answer: 2, explanation: "Schedule T contains GMP requirements for Ayurvedic, Siddha and Unani medicines." },
+]; 
 
 export function PracticeQuiz() {
   const [index, setIndex] = useState(0);
