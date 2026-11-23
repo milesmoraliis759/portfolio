@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import Link from "next/link";
 import { compileMDX } from "next-mdx-remote/rsc";
 import type { ComponentProps } from "react";
 import remarkGfm from "remark-gfm";
@@ -41,6 +42,11 @@ export default async function ContentPage({ params }: Props) {
   if (!result) notFound();
   const { content } = await compileMDX({ source: result.source, components: mdxComponents, options: { parseFrontmatter: true, mdxOptions: { remarkPlugins: [remarkGfm] } } });
   const { item } = result;
+  const siblings = getAllContent(item.kind).filter((entry) => entry.category === item.category);
+  const currentIndex = siblings.findIndex((entry) => entry.slug === item.slug);
+  const previousItem = currentIndex > 0 ? siblings[currentIndex - 1] : null;
+  const nextItem = currentIndex >= 0 && currentIndex < siblings.length - 1 ? siblings[currentIndex + 1] : null;
+  const sectionLabel = item.kind === "articles" ? "article" : "lesson";
   const formattedDate = item.date ? new Intl.DateTimeFormat("en-IN", { day: "numeric", month: "short", year: "numeric" }).format(new Date(item.date)) : "Student notes";
-  return <article className="article-shell"><ReadingProgress/><header className="article-heading reading-container"><span className="tag">{item.kind === "articles" ? "Journal" : "Learning note"} · {item.category}</span><p className="eyebrow">{item.kind === "articles" ? "WRITING & REFLECTIONS" : "LEARNING STUDIO"} · {item.readTime}</p><h1>{item.title}</h1><p className="article-description">{item.description}</p><div className="article-meta"><span>{formattedDate}</span><span>{item.level ?? "Pharmacy learning"}</span></div><StudyActions item={{ slug: item.slug, title: item.title, category: item.category, href: `/${item.kind}/${item.slug.split("--").join("/")}` }}/></header><div className="mdx-prose">{content}</div><div className="article-end"><span>END OF NOTE</span><span>Educational material · Verify with standard references</span></div></article>;
+  return <article className="article-shell"><ReadingProgress/><header className="article-heading reading-container"><span className="tag">{item.kind === "articles" ? "Journal" : "Learning note"} · {item.category}</span><p className="eyebrow">{item.kind === "articles" ? "WRITING & REFLECTIONS" : "LEARNING STUDIO"} · {item.readTime}</p><h1>{item.title}</h1><p className="article-description">{item.description}</p><div className="article-meta"><span>{formattedDate}</span><span>{item.level ?? "Pharmacy learning"}</span></div><StudyActions item={{ slug: item.slug, title: item.title, category: item.category, href: `/${item.kind}/${item.slug.split("--").join("/")}` }}/></header><div className="mdx-prose">{content}</div><div className="article-end"><span>END OF NOTE</span><span>Educational material · Verify with standard references</span></div><nav className="content-pagination reading-container" aria-label={`More ${item.kind}`}><Link href={`/${item.kind}`} className="content-pagination-home">← Back to {item.kind === "articles" ? "articles" : "learning notes"}</Link><div className="content-pagination-items">{previousItem ? <Link href={`/${item.kind}/${previousItem.slug.split("--").join("/")}`}><span>← PREVIOUS {sectionLabel.toUpperCase()}</span><strong>{previousItem.title}</strong></Link> : <span/>}{nextItem ? <Link href={`/${item.kind}/${nextItem.slug.split("--").join("/")}`}><span>NEXT {sectionLabel.toUpperCase()} →</span><strong>{nextItem.title}</strong></Link> : <span/>}</div></nav></article>;
 }
