@@ -7,9 +7,12 @@ import { getAllContent, getContentBySlug, type ContentKind } from "@/lib/content
 import { ReadingProgress } from "@/components/reading-progress";
 import { Callout, Definition, DrugCard, Formula, ProcessFlow } from "@/components/pharmacy-mdx";
 import { QuickCheck } from "@/components/quick-check";
+import { LessonQuiz } from "@/components/lesson-quiz";
 import { StudyActions } from "@/components/study-tools";
 
 type Props = { params: Promise<{ kind: string; slug: string[] }> };
+export const dynamicParams = false;
+
 export function generateStaticParams() {
   return getAllContent().map((item) => ({ kind: item.kind, slug: item.slug.split("--") }));
 }
@@ -20,10 +23,17 @@ async function resolve(params: Props["params"]) {
 }
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const result = await resolve(params);
-  return result ? { title: result.item.title, description: result.item.description, openGraph: { type: "article", title: result.item.title, description: result.item.description } } : { title: "Not found" };
+  const pathname = result ? `/${result.item.kind}/${result.item.slug.split("--").join("/")}` : undefined;
+  return result ? {
+    title: result.item.title,
+    description: result.item.description,
+    alternates: { canonical: pathname },
+    openGraph: { type: "article", url: pathname, title: result.item.title, description: result.item.description },
+    twitter: { card: "summary_large_image", title: result.item.title, description: result.item.description },
+  } : { title: "Not found" };
 }
 const mdxComponents = {
-  Callout, Definition, DrugCard, Formula, ProcessFlow, QuickCheck,
+  Callout, Definition, DrugCard, Formula, ProcessFlow, QuickCheck, LessonQuiz,
   table: (props: ComponentProps<"table">) => <div className="table-scroll" role="region" aria-label="Scrollable data table" tabIndex={0}><table {...props}/></div>,
 };
 export default async function ContentPage({ params }: Props) {
