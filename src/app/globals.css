@@ -468,3 +468,9 @@ p { margin-top: 0; }
 @media (prefers-reduced-motion: reduce) {
   .lesson-quiz-progress span { transition: none; }
 }
+
+
+.lesson-quiz-next-steps { display: grid; gap: 8px; margin-top: 20px; padding-top: 16px; border-top: 1px solid var(--border); }
+.lesson-quiz-next-steps > span { color: var(--subtle); font: 10px var(--mono); letter-spacing: .07em; }
+.lesson-quiz-next-steps a { display: flex; align-items: center; justify-content: space-between; gap: 12px; min-height: 42px; padding: 9px 12px; border: 1px solid var(--border); border-radius: 5px; color: var(--text); text-decoration: none; font-size: 12px; }
+.lesson-quiz-next-steps a:hover { border-color: var(--accent); color: var(--accent); }

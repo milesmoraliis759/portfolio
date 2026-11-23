@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useState } from "react";
 import { Check, RotateCcw, X } from "lucide-react";
 
@@ -105,6 +106,11 @@ export function LessonQuiz({ title = "Check your understanding", questions, ques
         {!submitted && answeredCount !== quizQuestions.length ? <span>Answer every question to see your result.</span> : null}
       </div>
       <p className="lesson-quiz-note">These are original practice questions, not official previous-year questions.</p>
+      <div className="lesson-quiz-next-steps">
+        <span>KEEP LEARNING</span>
+        <Link href="/practice">Practice quiz and timed mock test <span aria-hidden="true">↗</span></Link>
+        <Link href="/pyqs">Explore verified previous-year questions <span aria-hidden="true">↗</span></Link>
+      </div>
     </section>
   );
 }
