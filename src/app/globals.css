@@ -247,3 +247,36 @@ p { margin-top: 0; }
 .skills-grid h3 { font-size: 21px; margin: 0 0 8px; }
 .skills-grid p { color: var(--muted); font-size: 12px; line-height: 1.8; }
 @media(max-width:700px) { .skills-grid { grid-template-columns: 1fr; } .skills-section { margin-top: 46px; } }
+
+/* Responsive MDX lists, tables and pharmacy teaching components */
+.mdx-prose { overflow-wrap:anywhere; }
+.mdx-prose > :first-child { margin-top:0; }
+.mdx-prose ul,.mdx-prose ol { padding-inline-start:1.55rem; margin-block:1rem 1.4rem; }
+.mdx-prose ul { list-style:disc outside; } .mdx-prose ul ul { list-style:circle outside; margin-block:.45rem; }
+.mdx-prose ol { list-style:decimal outside; } .mdx-prose ol ol { list-style:lower-alpha outside; margin-block:.45rem; }
+.mdx-prose li { display:list-item; padding-inline-start:.25rem; margin-block:.38rem; }
+.mdx-prose li::marker { color:var(--accent); font-weight:650; } .mdx-prose li > p { margin-block:.25rem .55rem; }
+.mdx-prose hr { border:0; border-top:1px solid var(--border); margin:2.5rem 0; }
+.mdx-prose img { display:block; max-width:100%; height:auto; border-radius:7px; margin:1.5rem auto; }
+.mdx-prose .table-scroll { width:100%; overflow-x:auto; overscroll-behavior-inline:contain; border:1px solid var(--border); border-radius:7px; margin:1.5rem 0; }
+.mdx-prose .table-scroll table { min-width:460px; margin:0; border:0; }
+.pharma-callout,.pharma-definition,.pharma-formula,.pharma-drug-card,.pharma-process { margin:1.7rem 0; padding:1.1rem 1.25rem; border:1px solid var(--border); border-radius:8px; background:var(--surface); }
+.pharma-callout { border-left:3px solid var(--accent); }
+.pharma-callout--tip { background:color-mix(in srgb,var(--accent-soft) 58%,var(--surface)); }
+.pharma-callout--exam { border-left-color:#b7791f; background:color-mix(in srgb,#b7791f 7%,var(--surface)); }
+.pharma-callout--caution { border-left-color:#c65b4b; background:color-mix(in srgb,#c65b4b 7%,var(--surface)); }
+.pharma-callout__heading { display:flex; align-items:center; gap:.55rem; color:var(--accent); font-size:.9rem; margin-bottom:.55rem; }
+.pharma-callout--exam .pharma-callout__heading { color:#a66a14; } .pharma-callout--caution .pharma-callout__heading { color:#b34c3d; }
+.pharma-callout__body > :last-child,.pharma-definition > :last-child,.pharma-process__content > :last-child { margin-bottom:0; }
+.pharma-definition { background:var(--surface-2); }
+.pharma-definition__label { display:block; color:var(--accent); font:10px var(--mono); letter-spacing:.09em; margin-bottom:.45rem; }
+.pharma-definition__term { display:block; font-family:var(--display); font-size:1.35rem; color:var(--text); margin-bottom:.3rem; }
+.pharma-formula { text-align:center; background:var(--surface-2); }
+.pharma-formula figcaption { color:var(--muted); font:10px var(--mono); text-transform:uppercase; letter-spacing:.08em; margin:0 0 .7rem; }
+.pharma-formula__content { color:var(--text); font-size:1.12rem; font-weight:600; white-space:pre-line; }
+.pharma-drug-card { padding:0; overflow:hidden; }
+.pharma-drug-card__title { display:flex; flex-wrap:wrap; justify-content:space-between; gap:.5rem; align-items:baseline; padding:.85rem 1rem; background:var(--surface-2); border-bottom:1px solid var(--border); }
+.pharma-drug-card__title strong { font-family:var(--display); font-size:1.2rem; } .pharma-drug-card__title span { color:var(--accent); font:10px var(--mono); }
+.pharma-drug-card > p { margin:.7rem 1rem; font-size:.9rem; } .pharma-drug-card > p:last-child { margin-bottom:1rem; }
+.pharma-process { border-style:dashed; } .pharma-process > h3 { margin:0 0 .8rem; font-size:1.15rem; }
+@media(max-width:700px) { .pharma-callout,.pharma-definition,.pharma-formula,.pharma-process { padding:.95rem; } .mdx-prose table { font-size:12px; } }
