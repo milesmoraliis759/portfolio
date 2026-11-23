@@ -1,23 +1,40 @@
 "use client";
 
+import { useSyncExternalStore } from "react";
 import { Moon, Sun } from "lucide-react";
-import { useEffect, useState } from "react";
 
 type Theme = "light" | "dark";
 
-export function ThemeToggle() {
-  const [theme, setTheme] = useState<Theme>("light");
+function subscribe(callback: () => void) {
+  const notify = () => callback();
+  window.addEventListener("storage", notify);
+  window.addEventListener("harsh-theme-change", notify);
+  return () => {
+    window.removeEventListener("storage", notify);
+    window.removeEventListener("harsh-theme-change", notify);
+  };
+}
 
-  useEffect(() => {
-    const current = document.documentElement.dataset.theme;
-    setTheme(current === "dark" ? "dark" : "light");
-  }, []);
+function getThemeSnapshot(): Theme {
+  return document.documentElement.dataset.theme === "dark" ? "dark" : "light";
+}
+
+function getServerSnapshot(): Theme {
+  return "light";
+}
+
+export function ThemeToggle() {
+  const theme = useSyncExternalStore(subscribe, getThemeSnapshot, getServerSnapshot);
 
   function toggleTheme() {
     const next: Theme = theme === "dark" ? "light" : "dark";
     document.documentElement.dataset.theme = next;
-    window.localStorage.setItem("harsh-theme", next);
-    setTheme(next);
+    try {
+      window.localStorage.setItem("harsh-theme", next);
+    } catch {
+      // The theme still changes for this session when storage is unavailable.
+    }
+    window.dispatchEvent(new Event("harsh-theme-change"));
   }
 
   return (
