@@ -4,11 +4,7 @@ import { ThemeToggle } from "@/components/theme-toggle";
 
 const links = [
   { href: "/learning", label: "Learning" },
-  { href: "/practice", label: "Practice" },
-  { href: "/pyqs", label: "PYQs" },
-  { href: "/revision", label: "Revision" },
-  { href: "/articles", label: "Writing" },
-  { href: "/experience", label: "Experience" },
+  { href: "/articles", label: "Articles" },
   { href: "/about", label: "About" },
 ];
 

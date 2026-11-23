@@ -6,6 +6,7 @@ import remarkGfm from "remark-gfm";
 import { getAllContent, getContentBySlug, type ContentKind } from "@/lib/content";
 import { ReadingProgress } from "@/components/reading-progress";
 import { Callout, Definition, DrugCard, Formula, ProcessFlow } from "@/components/pharmacy-mdx";
+import { QuickCheck } from "@/components/quick-check";
 import { StudyActions } from "@/components/study-tools";
 
 type Props = { params: Promise<{ kind: string; slug: string[] }> };
@@ -22,7 +23,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return result ? { title: result.item.title, description: result.item.description, openGraph: { type: "article", title: result.item.title, description: result.item.description } } : { title: "Not found" };
 }
 const mdxComponents = {
-  Callout, Definition, DrugCard, Formula, ProcessFlow,
+  Callout, Definition, DrugCard, Formula, ProcessFlow, QuickCheck,
   table: (props: ComponentProps<"table">) => <div className="table-scroll" role="region" aria-label="Scrollable data table" tabIndex={0}><table {...props}/></div>,
 };
 export default async function ContentPage({ params }: Props) {
