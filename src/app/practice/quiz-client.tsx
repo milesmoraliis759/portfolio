@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useRef, useState } from "react";
+import { useLocalStorageSnapshot, writeLocalStorageSnapshot } from "@/lib/local-storage";
 import { ArrowLeft, ArrowRight, CheckCircle2, Clock3, RotateCcw, Target, XCircle } from "lucide-react";
 
 type Question = {
@@ -68,9 +69,9 @@ const questions: Question[] = [
   { id: 40, subject: "Pharmaceutical Jurisprudence", topic: "Drugs and Cosmetics Rules", prompt: "Schedule H1 of the Drugs and Cosmetics Rules is associated with:", options: ["Minimum pharmacy equipment", "Additional sale and record-keeping controls for specified drugs", "GMP for ASU medicines", "Shelf-life tables only"], answer: 1, explanation: "Schedule H1 identifies specified drugs subject to prescription-related controls and additional record-keeping requirements under the Rules." },
 ];
 
-function readAttempts(): Attempt[] {
+function readAttempts(value: string | null): Attempt[] {
   try {
-    const parsed: unknown = JSON.parse(window.localStorage.getItem(ATTEMPTS_KEY) ?? "[]");
+    const parsed: unknown = JSON.parse(value ?? "[]");
     return Array.isArray(parsed) ? parsed.filter((item) => item && typeof item.score === "number" && typeof item.total === "number") as Attempt[] : [];
   } catch {
     return [];
@@ -90,8 +91,9 @@ export function PracticeQuiz() {
   const [mode, setMode] = useState<"practice" | "mock">("practice");
   const [subject, setSubject] = useState("All subjects");
   const [remaining, setRemaining] = useState(MOCK_SECONDS);
-  const [attempts, setAttempts] = useState<Attempt[]>([]);
-  const [loaded, setLoaded] = useState(false);
+  const attemptsSnapshot = useLocalStorageSnapshot(ATTEMPTS_KEY);
+  const attempts = useMemo(() => readAttempts(attemptsSnapshot), [attemptsSnapshot]);
+  const loaded = attemptsSnapshot !== null;
   const savedAttempt = useRef(false);
 
   const subjects = useMemo(() => ["All subjects", ...Array.from(new Set(questions.map((q) => q.subject)))], []);
@@ -101,30 +103,21 @@ export function PracticeQuiz() {
   const score = useMemo(() => activeQuestions.filter((q) => answers[q.id] === q.answer).length, [activeQuestions, answers]);
   const progress = activeQuestions.filter((q) => answers[q.id] !== undefined).length;
   const bestPercent = attempts.length ? Math.max(...attempts.map((a) => Math.round((a.score / a.total) * 100))) : 0;
+  const isFinished = finished || (mode === "mock" && remaining === 0);
 
   useEffect(() => {
-    setAttempts(readAttempts());
-    setLoaded(true);
-  }, []);
-
-  useEffect(() => {
-    if (mode !== "mock" || finished) return;
+    if (mode !== "mock" || isFinished) return;
     const timer = window.setInterval(() => setRemaining((value) => Math.max(0, value - 1)), 1000);
     return () => window.clearInterval(timer);
-  }, [mode, finished]);
+  }, [mode, isFinished]);
 
   useEffect(() => {
-    if (mode === "mock" && remaining === 0 && !finished) setFinished(true);
-  }, [mode, remaining, finished]);
-
-  useEffect(() => {
-    if (!finished || !loaded || savedAttempt.current || activeQuestions.length === 0) return;
+    if (!isFinished || !loaded || savedAttempt.current || activeQuestions.length === 0) return;
     const record: Attempt = { score, total: activeQuestions.length, mode, topic: subject, completedAt: new Date().toISOString() };
     const next = [record, ...attempts].slice(0, 20);
-    setAttempts(next);
     savedAttempt.current = true;
-    try { window.localStorage.setItem(ATTEMPTS_KEY, JSON.stringify(next)); } catch { /* Keep the session usable if storage is unavailable. */ }
-  }, [finished, loaded, activeQuestions, score, mode, subject, attempts]);
+    writeLocalStorageSnapshot(ATTEMPTS_KEY, JSON.stringify(next));
+  }, [isFinished, loaded, activeQuestions, score, mode, subject, attempts]);
 
   function reset(nextMode: "practice" | "mock" = mode, nextSubject = subject) {
     setIndex(0);
@@ -137,14 +130,14 @@ export function PracticeQuiz() {
   }
 
   function choose(option: number) {
-    if (finished || !current) return;
+    if (isFinished || !current) return;
     setAnswers((previous) => ({ ...previous, [current.id]: option }));
   }
 
   const restart = () => reset(mode, subject);
   const reveal = mode === "practice" && answered;
 
-  if (finished) {
+  if (isFinished) {
     return (
       <section className="quiz-panel">
         <div className="quiz-result-icon"><Target size={27}/></div>
@@ -191,7 +184,7 @@ export function PracticeQuiz() {
         {current.options.map((option, i) => {
           const selected = answers[current.id] === i;
           const correct = i === current.answer;
-          const showAnswer = reveal || finished;
+          const showAnswer = reveal || isFinished;
           const state = showAnswer && correct ? "correct" : showAnswer && selected && !correct ? "incorrect" : selected ? "selected" : "";
           return <button type="button" key={option} className={`quiz-option ${state}`} onClick={() => choose(i)} aria-pressed={selected}>
             <span className="quiz-option-letter">{String.fromCharCode(65 + i)}</span><span>{option}</span>
