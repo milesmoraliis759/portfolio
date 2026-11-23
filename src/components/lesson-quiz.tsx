@@ -12,16 +12,28 @@ type LessonQuestion = {
 
 type Props = {
   title?: string;
-  questions: LessonQuestion[];
+  questions?: LessonQuestion[];
+  questionsJson?: string;
 };
 
-export function LessonQuiz({ title = "Check your understanding", questions }: Props) {
+function readQuestions(value?: string): LessonQuestion[] {
+  if (!value) return [];
+  try {
+    const parsed: unknown = JSON.parse(value);
+    return Array.isArray(parsed) ? parsed as LessonQuestion[] : [];
+  } catch {
+    return [];
+  }
+}
+
+export function LessonQuiz({ title = "Check your understanding", questions, questionsJson }: Props) {
   const [answers, setAnswers] = useState<Record<number, number>>({});
   const [submitted, setSubmitted] = useState(false);
-  const answeredCount = Object.keys(answers).length;
-  const score = questions.reduce((total, question, index) => total + (answers[index] === question.answer ? 1 : 0), 0);
+  const quizQuestions = Array.isArray(questions) ? questions : readQuestions(questionsJson);
+  const answeredCount = Object.keys(answers).filter((key) => Number(key) < quizQuestions.length).length;
+  const score = quizQuestions.reduce((total, question, index) => total + (answers[index] === question.answer ? 1 : 0), 0);
 
-  if (!questions.length) return null;
+  if (!quizQuestions.length) return null;
 
   function reset() {
     setAnswers({});
@@ -32,17 +44,17 @@ export function LessonQuiz({ title = "Check your understanding", questions }: Pr
     <section className="lesson-quiz" aria-labelledby="lesson-quiz-title">
       <div className="lesson-quiz-topline">
         <span className="lesson-quiz-kicker">LESSON QUIZ · PRACTICE QUESTIONS</span>
-        <span>{questions.length} questions</span>
+        <span>{quizQuestions.length} questions</span>
       </div>
       <h2 id="lesson-quiz-title">{title}</h2>
       <p className="lesson-quiz-intro">Try these questions after finishing the lesson. Choose one answer for each, then check your result.</p>
-      <div className="lesson-quiz-progress" aria-label={`${answeredCount} of ${questions.length} questions answered`}>
-        <span style={{ width: `${(answeredCount / questions.length) * 100}%` }} />
+      <div className="lesson-quiz-progress" aria-label={`${answeredCount} of ${quizQuestions.length} questions answered`}>
+        <span style={{ width: `${(answeredCount / quizQuestions.length) * 100}%` }} />
       </div>
-      <p className="lesson-quiz-progress-label" aria-live="polite">{answeredCount} of {questions.length} answered</p>
+      <p className="lesson-quiz-progress-label" aria-live="polite">{answeredCount} of {quizQuestions.length} answered</p>
 
       <div className="lesson-quiz-questions">
-        {questions.map((question, questionIndex) => (
+        {quizQuestions.map((question, questionIndex) => (
           <fieldset className="lesson-quiz-question" key={questionIndex} disabled={submitted}>
             <legend><span>{String(questionIndex + 1).padStart(2, "0")}</span>{question.question}</legend>
             <div className="lesson-quiz-options">
@@ -78,19 +90,19 @@ export function LessonQuiz({ title = "Check your understanding", questions }: Pr
 
       {submitted ? (
         <div className="lesson-quiz-result" role="status" aria-live="polite">
-          <strong>You scored {score} out of {questions.length}</strong>
-          <span>{score === questions.length ? "Excellent — you have the key ideas." : "Review the explanations, then try once more."}</span>
+          <strong>You scored {score} out of {quizQuestions.length}</strong>
+          <span>{score === quizQuestions.length ? "Excellent — you have the key ideas." : "Review the explanations, then try once more."}</span>
         </div>
       ) : null}
       <div className="lesson-quiz-actions">
         {!submitted ? (
-          <button className="lesson-quiz-submit" type="button" disabled={answeredCount !== questions.length} onClick={() => setSubmitted(true)}>
+          <button className="lesson-quiz-submit" type="button" disabled={answeredCount !== quizQuestions.length} onClick={() => setSubmitted(true)}>
             Check my answers
           </button>
         ) : (
           <button className="lesson-quiz-retry" type="button" onClick={reset}><RotateCcw size={14} /> Try again</button>
         )}
-        {!submitted && answeredCount !== questions.length ? <span>Answer every question to see your result.</span> : null}
+        {!submitted && answeredCount !== quizQuestions.length ? <span>Answer every question to see your result.</span> : null}
       </div>
       <p className="lesson-quiz-note">These are original practice questions, not official previous-year questions.</p>
     </section>
