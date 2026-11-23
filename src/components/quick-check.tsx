@@ -1,26 +1,40 @@
 "use client";
 
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { Check, RotateCcw, X } from "lucide-react";
 
 type Props = {
   question: string;
-  options: string[];
+  options?: string[];
+  optionsJson?: string;
   answer: number;
   explanation: string;
 };
 
-export function QuickCheck({ question, options, answer, explanation }: Props) {
+function parseOptions(value?: string): string[] {
+  if (!value) return [];
+  try {
+    const parsed: unknown = JSON.parse(value);
+    return Array.isArray(parsed) && parsed.every((item) => typeof item === "string") ? parsed : [];
+  } catch {
+    return [];
+  }
+}
+
+export function QuickCheck({ question, options, optionsJson, answer, explanation }: Props) {
   const [selected, setSelected] = useState<number | null>(null);
   const [revealed, setRevealed] = useState(false);
+  const choices = useMemo(() => Array.isArray(options) ? options : parseOptions(optionsJson), [options, optionsJson]);
   const correct = selected === answer;
+
+  if (!choices.length) return null;
 
   return (
     <section className="quick-check" aria-label="Knowledge check">
       <div className="quick-check-kicker">PRACTICE QUESTION · CONCEPT CHECK</div>
       <h3>{question}</h3>
       <div className="quick-check-options">
-        {options.map((option, index) => {
+        {choices.map((option, index) => {
           const state = revealed && index === answer ? "correct" : revealed && selected === index ? "incorrect" : selected === index ? "selected" : "";
           return <button key={option} type="button" className={`quick-check-option ${state}`} onClick={() => { if (!revealed) setSelected(index); }} aria-pressed={selected === index} disabled={revealed}>
             <span>{String.fromCharCode(65 + index)}</span><span>{option}</span>
