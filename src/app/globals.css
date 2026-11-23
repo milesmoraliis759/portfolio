@@ -376,3 +376,6 @@ p { margin-top: 0; }
 .quiz-attempt-summary { display:flex; flex-wrap:wrap; justify-content:space-between; gap:10px; padding:12px 0; border-block:1px solid var(--border); color:var(--muted); font:10px var(--mono); }
 .quiz-history-line { margin:14px 0 0; color:var(--subtle); font:10px var(--mono); }
 @media(max-width:600px) { .quiz-filter-row { align-items:flex-start; flex-direction:column; } .quiz-filter-row select { width:100%; max-width:none; } .quiz-mode-switch button { font-size:10px; } }
+
+.pyq-source-note { align-items:flex-start; }
+.pyq-source-note p { max-width:640px; }
