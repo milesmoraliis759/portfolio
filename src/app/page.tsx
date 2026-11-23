@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, ArrowUpRight, BookOpen, BriefcaseMedical, GraduationCap, Microscope, MoveUpRight } from "lucide-react";
 import { ContentCard } from "@/components/content-card";
+import { QuickCheck } from "@/components/quick-check";
 import { getAllContent, getFeaturedContent } from "@/lib/content";
 
 const interests = [
@@ -89,6 +90,22 @@ export default function HomePage() {
         {learning.length ? <div className="content-grid">{learning.map((item, i) => <ContentCard item={item} index={i} key={item.slug}/>)}</div> : <div className="empty-state"><BookOpen size={20}/> New study notes will appear here as they are published.</div>}
       </section>
 
+      <section className="section focus-section">
+        <div className="container">
+          <div className="section-heading">
+            <div><div className="section-kicker"><span>04</span> / TEST YOUR UNDERSTANDING</div><h2>A small question.<br/><em>A stronger concept.</em></h2></div>
+            <p className="max-copy">A short practice check to make active recall part of the learning experience.</p>
+          </div>
+          <QuickCheck
+            question="Which of the following is a commonly used superdisintegrant in tablets?"
+            options={["Croscarmellose sodium", "Lactose", "Magnesium stearate", "Talc"]}
+            answer={0}
+            explanation="Croscarmellose sodium is a cross-linked cellulose derivative. It promotes rapid tablet breakup by swelling and wicking water into the tablet. This is a practice question, not a previous-year question."
+          />
+          <div className="text-center"><Link href="/practice" className="underlined-link">Explore the full practice quiz <ArrowUpRight size={15}/></Link></div>
+        </div>
+      </section>
+
       <section className="journal-band">
         <div className="container journal-inner">
           <div><p className="eyebrow">THE WRITING DESK</p><h2>Learning becomes clearer<br />when you <em>write it down.</em></h2><p className="journal-copy">Short explainers, longer reflections and practical observations from pharmaceutical sciences.</p></div>
@@ -98,7 +115,7 @@ export default function HomePage() {
 
       <section className="section container latest-section">
         <div className="section-heading">
-          <div><div className="section-kicker"><span>04</span> / RECENT WRITING</div><h2>Notes from the <em>field.</em></h2></div>
+          <div><div className="section-kicker"><span>05</span> / RECENT WRITING</div><h2>Notes from the <em>field.</em></h2></div>
           <Link href="/articles" className="underlined-link">All articles <MoveUpRight size={15}/></Link>
         </div>
         {writing.length ? <div className="content-grid">{writing.map((item, i) => <ContentCard item={item} index={i} key={item.slug}/>)}</div> : <div className="empty-state">Articles will appear here as they are published.</div>}
