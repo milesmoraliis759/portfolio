@@ -1592,3 +1592,40 @@ body > main, body > .site-header, body > .site-footer { position: relative; z-in
 @media(max-width:560px){.gil-form-grid{grid-template-columns:1fr}}
 .gil-footer-links{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
 .gil-footer-links a{color:var(--accent)}
+
+/* Akatsuki Trials: clearer active navigation and focused mobile test layout */
+.gil-tabs{gap:7px;padding:14px 0 16px}
+.gil-tabs button{border:1px solid var(--line);background:color-mix(in srgb,var(--surface) 80%,transparent);color:var(--muted);font-weight:600;transition:background .18s ease,border-color .18s ease,color .18s ease,transform .18s ease}
+.gil-tabs button:hover{border-color:color-mix(in srgb,var(--accent) 55%,var(--line));color:var(--text);transform:translateY(-1px)}
+.gil-tabs button.active{background:var(--accent);border-color:var(--accent);color:#fff;box-shadow:0 0 0 2px color-mix(in srgb,var(--accent) 22%,transparent),0 5px 18px color-mix(in srgb,var(--accent) 25%,transparent)}
+.gil-mode-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.gil-mode-grid button{min-height:82px;padding:14px;transition:border-color .18s ease,background .18s ease,box-shadow .18s ease}
+.gil-mode-grid button.active{border:2px solid var(--accent);padding:13px;background:color-mix(in srgb,var(--accent) 15%,var(--surface));box-shadow:inset 3px 0 0 var(--accent),0 0 0 2px color-mix(in srgb,var(--accent) 14%,transparent)}
+.gil-mode-grid button.active strong{color:var(--accent)}
+.gil-form-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+.gil-timer-toggle{max-width:180px}
+.gil-setup-note{margin-top:12px;line-height:1.65}
+.gil-test-bar{align-items:center;letter-spacing:.08em}
+.gil-test-bar small{display:block;margin-top:4px;color:var(--muted);font:10px var(--sans);letter-spacing:0}
+.gil-progress-track{height:4px;background:var(--line)}
+.gil-progress-track span{display:block;height:100%;background:var(--accent);transition:width .2s ease}
+.gil-options button{min-height:52px}
+.gil-options button.selected{border-color:var(--accent);background:color-mix(in srgb,var(--accent) 13%,var(--surface));box-shadow:inset 3px 0 0 var(--accent)}
+.gil-question-meta span{max-width:100%}
+.gil-footer-links{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+@media(max-width:560px){
+ .gil-shell{padding-top:8px}
+ .gil-tabs{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:4px;overflow:visible}
+ .gil-tabs button{padding:9px 3px;font-size:10px;border-radius:7px;text-align:center}
+ .gil-mode-grid{grid-template-columns:1fr}
+ .gil-mode-grid button{min-height:64px}
+ .gil-form-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .gil-timer-toggle{max-width:none}
+ .gil-setup-footer{align-items:stretch}
+ .gil-setup-footer button{justify-content:center;width:100%}
+ .gil-test-bar{padding:12px 14px}
+ .gil-question{padding:16px}
+ .gil-question h2{font-size:21px;line-height:1.38}
+ .gil-options button{align-items:flex-start;text-align:left;line-height:1.4}
+ .gil-question-footer>div button{flex:1;justify-content:center}
+}

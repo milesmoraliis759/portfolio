@@ -18,12 +18,10 @@ type SavedState = { attempts: Attempt[]; errors: ErrorItem[]; mastered: string[]
 
 const KEY = "harsh-gpat-intelligence-lab-v1";
 const modes = [
-  { id: "quick", label: "Quick Test", count: 10, hint: "10 questions · fast recall" },
-  { id: "topic", label: "Topic Test", count: 20, hint: "20 questions · focused practice" },
-  { id: "subject", label: "Subject Test", count: 30, hint: "30 questions · subject coverage" },
-  { id: "mixed", label: "Mixed GPAT Test", count: 50, hint: "50 questions · mixed subjects" },
-  { id: "application", label: "Application Challenge", count: 15, hint: "Application and scenario questions" },
-  { id: "sunday", label: "Sunday Grand Test", count: 50, hint: "Configurable full-length source-based mock" },
+  { id: "quick", label: "Quick Practice", count: 10, hint: "10 questions · quick daily check" },
+  { id: "topic", label: "Topic Practice", count: 20, hint: "20 questions · focus on one topic" },
+  { id: "application", label: "Application Challenge", count: 15, hint: "15 questions · solve unfamiliar situations" },
+  { id: "mixed", label: "Mixed Mock Test", count: 50, hint: "Up to 50 questions · mixed subjects" },
 ];
 const concepts = [
   { subject:"Physical Pharmaceutics", title:"Chemical kinetics & shelf life", detail:"Zero-, first- and second-order models; t₉₀, t₅₀ and stability interpretation." },
@@ -52,7 +50,6 @@ export function GpatIntelligenceLab() {
   const [tab, setTab] = useState("overview");
   const [mode, setMode] = useState("quick");
   const [subject, setSubject] = useState("All subjects");
-  const [difficulty, setDifficulty] = useState("All");
   const [topic, setTopic] = useState("All topics");
   const [timed, setTimed] = useState(false);
   const [seconds, setSeconds] = useState(0);
@@ -86,9 +83,8 @@ export function GpatIntelligenceLab() {
   const eligible = useMemo(() => gpatPyqs.filter(q =>
     q.verified &&
     (subject === "All subjects" || q.subject === subject) &&
-    (topic === "All topics" || q.topic === topic) &&
-    (difficulty === "All" || (difficulty === "Application" ? q.type === "Application" || q.type === "Numerical" : q.type === difficulty))
-  ), [subject, topic, difficulty]);
+    (topic === "All topics" || q.topic === topic)
+  ), [subject, topic]);
   const availableTopics = useMemo(() => Array.from(new Set(gpatPyqs.filter(q => q.verified && (subject === "All subjects" || q.subject === subject)).map(q => q.topic))).sort(), [subject]);
   const attempts = saved.attempts;
   const totalAnswered = attempts.reduce((n, a) => n + a.total, 0);
@@ -110,7 +106,7 @@ export function GpatIntelligenceLab() {
     const count = Math.min(selectedMode.count, pool.length);
     if (!count) return;
     const selected = [...pool].sort(() => Math.random() - 0.5).slice(0,count);
-    setQuiz(selected); setIndex(0); setAnswers({}); setMarked([]); setSeconds(0); setSubmitted(false); setShowConfirm(false); setTab("test");
+    setQuiz(selected); setIndex(0); setAnswers({}); setMarked([]); setSeconds(0); setSubmitted(false); setShowConfirm(false); setTab("arena"); window.scrollTo({ top: 0, behavior: "smooth" });
   }
   function finishTest() {
     const correct = quiz.filter(q => answers[q.id] === q.answer).length;
@@ -144,7 +140,7 @@ export function GpatIntelligenceLab() {
     <div className="gil-topline"><span>暁 / GPAT INTELLIGENCE LAB</span><span>KNOW · CONNECT · APPLY · MASTER</span></div>
     <nav className="gil-tabs" aria-label="GPAT Intelligence Lab sections">
       {[
-        ["overview","Overview"],["academy","Concept Academy"],["arena","Test Arena"],["errors","Error Notebook"],["analytics","Performance"]
+        ["overview","Home"],["academy","Learn"],["arena","Test"],["errors","Mistakes"],["analytics","Progress"]
       ].map(([id,label])=><button key={id} className={tab===id?"active":""} onClick={()=>setTab(id)}>{label}</button>)}
     </nav>
 
@@ -176,17 +172,17 @@ export function GpatIntelligenceLab() {
     </section>}
 
     {tab==="arena" && <section className="gil-section">
-      <header className="gil-heading"><p className="gil-kicker">TEST ARENA</p><h1>Train your <em>thinking.</em></h1><p>Uploaded GPAT questions and additional reviewed practice questions. Every item is labelled by provenance; explanations appear after submission.</p></header>
+      <header className="gil-heading"><p className="gil-kicker">AKATSUKI TRIALS · PRACTICE</p><h1>Test your <em>thinking.</em></h1><p>Choose a practice mode, pick a topic if you want, and start answering. Explanations appear after submission.</p></header>
       {!quiz.length ? <div className="gil-setup">
         <div className="gil-panel"><p className="gil-kicker">01 / SELECT YOUR TEST</p><div className="gil-mode-grid">{modes.map(m=><button key={m.id} className={mode===m.id?"active":""} onClick={()=>setMode(m.id)}><strong>{m.label}</strong><span>{m.hint}</span></button>)}</div>
-          <div className="gil-form-grid"><label>Subject<select value={subject} onChange={e=>setSubject(e.target.value)}>{gpatSubjects.map(s=><option key={s}>{s}</option>)}</select></label><label>Topic<select value={topic} onChange={e=>setTopic(e.target.value)}><option>All topics</option>{availableTopics.map(t=><option key={t}>{t}</option>)}</select></label><label>Question type<select value={difficulty} onChange={e=>setDifficulty(e.target.value)}>{["All","Direct","Conceptual","Application","Numerical"].map(s=><option key={s}>{s}</option>)}</select></label><label>Mode<select value={timed?"Timed":"Untimed"} onChange={e=>setTimed(e.target.value==="Timed")}><option>Untimed</option><option>Timed</option></select></label></div>
-          <div className="gil-setup-footer"><span>{eligible.length} reviewed questions available for this selection. Each start draws a fresh mix; test length is capped to the available pool.</span><button onClick={startTest} disabled={!eligible.length}>Start test <ArrowRight size={16}/></button></div>
+          <div className="gil-form-grid"><label>Subject<select value={subject} onChange={e=>{setSubject(e.target.value);setTopic("All topics");}}>{gpatSubjects.map(s=><option key={s}>{s}</option>)}</select></label><label>Topic<select value={topic} onChange={e=>setTopic(e.target.value)}><option>All topics</option>{availableTopics.map(t=><option key={t}>{t}</option>)}</select></label><label className="gil-timer-toggle">Timer<select value={timed?"Timed":"Untimed"} onChange={e=>setTimed(e.target.value==="Timed")}><option>Untimed</option><option>Timed</option></select></label></div>
+          <div className="gil-setup-footer"><span><strong>{eligible.length}</strong> questions match your selection. You'll get up to {modes.find(m=>m.id===mode)?.count} questions in a shuffled order.</span><button onClick={startTest} disabled={!eligible.length}>Start practice <ArrowRight size={16}/></button></div>
         </div>
-        <aside className="gil-panel gil-test-rules"><h3>Question provenance</h3><p>Uploaded PYQs show their year, question number and PDF page. Original practice questions are clearly labelled. Source keys are retained; questionable items are withheld from scoring.</p><h3>Marking scheme</h3><p>Neutral scoring: +1 correct, 0 incorrect or skipped. Configure coaching-specific negative marking when needed; do not assume every exam uses the same scheme.</p></aside>
+        <p className="gil-source-note gil-setup-note">Real uploaded GPAT questions are labelled with their exam year. Original syllabus-based questions are labelled Practice Question. Scoring: +1 correct, 0 incorrect or skipped.</p>
       </div> : <div className="gil-test">
-        <div className="gil-test-bar"><span>{modes.find(m=>m.id===mode)?.label} · {index+1}/{quiz.length}</span><span><Clock3 size={15}/>{timed?formatTime(seconds):"Untimed"}</span></div>
+        <div className="gil-test-bar"><span>QUESTION {index+1} OF {quiz.length} <small>{quiz.filter(q=>answers[q.id]!==undefined).length} answered</small></span><span><Clock3 size={15}/>{timed?formatTime(seconds):"Untimed"}</span></div><div className="gil-progress-track"><span style={{width:`${((index+1)/quiz.length)*100}%`}}/></div>
         {submitted ? <div className="gil-result"><Trophy/><p className="gil-kicker">TEST COMPLETE</p><h2>{quiz.filter(q=>answers[q.id]===q.answer).length} / {quiz.length} correct</h2><strong>{pct(quiz.filter(q=>answers[q.id]===q.answer).length,quiz.length)}% accuracy</strong><p>Incorrect and skipped questions have been added to your Error Notebook with a next-day revision date.</p><div className="gil-result-actions"><button onClick={()=>{setQuiz([]);setTab("errors");}}>Review mistakes</button><button className="gil-secondary" onClick={()=>setQuiz([])}>Back to test setup</button></div><div className="gil-answer-review">{quiz.map((q,i)=><article key={q.id}><div className="gil-question-meta"><span>{q.sourceType==="Practice Question"?"Practice Question":`GPAT ${q.year} · Q${q.number}`}</span><span>{q.subject}</span><span>{answers[q.id]===q.answer?"Correct":answers[q.id]===undefined?"Skipped":"Incorrect"}</span></div><h3>{i+1}. {q.prompt}</h3><p><strong>Correct answer:</strong> {q.options[q.answer]}</p><p>{q.explanation}</p><small>{q.source}</small></article>)}</div></div> : <>
-          <div className="gil-question"><div className="gil-question-meta"><span>{currentQuestion.subject}</span><span>{currentQuestion.type}</span><span>{currentQuestion.sourceType==="Practice Question"?"PRACTICE QUESTION":`GPAT ${currentQuestion.year} · Q${currentQuestion.number} · PDF p.${currentQuestion.page}`}</span></div><h2>{currentQuestion.prompt}</h2><div className="gil-options">{currentQuestion.options.map((o,i)=><button key={i} className={answers[currentQuestion.id]===i?"selected":""} onClick={()=>setAnswers(a=>({...a,[currentQuestion.id]:i}))}><span>{String.fromCharCode(65+i)}</span>{o}{answers[currentQuestion.id]===i?<Check size={16}/>:null}</button>)}</div><div className="gil-explain"><strong>Source</strong><span>{currentQuestion.source}</span></div></div>
+          <div className="gil-question"><div className="gil-question-meta"><span>{currentQuestion.subject}</span><span>{currentQuestion.topic}</span><span>{currentQuestion.sourceType==="Practice Question"?"PRACTICE QUESTION":`GPAT ${currentQuestion.year} · Q${currentQuestion.number}`}</span></div><h2>{currentQuestion.prompt}</h2><div className="gil-options">{currentQuestion.options.map((o,i)=><button key={i} className={answers[currentQuestion.id]===i?"selected":""} onClick={()=>setAnswers(a=>({...a,[currentQuestion.id]:i}))}><span>{String.fromCharCode(65+i)}</span>{o}{answers[currentQuestion.id]===i?<Check size={16}/>:null}</button>)}</div><div className="gil-explain"><strong>Source</strong><span>{currentQuestion.source}</span></div></div>
           <div className="gil-question-footer"><button className="gil-secondary" onClick={()=>setMarked(m=>m.includes(currentQuestion.id)?m.filter(x=>x!==currentQuestion.id):[...m,currentQuestion.id])}><Flag size={15}/>{marked.includes(currentQuestion.id)?"Marked":"Mark for review"}</button><div><button className="gil-secondary" disabled={index===0} onClick={()=>setIndex(i=>i-1)}><ArrowLeft size={15}/> Previous</button>{index<quiz.length-1?<button onClick={()=>setIndex(i=>i+1)}>Next <ArrowRight size={15}/></button>:<button onClick={()=>setShowConfirm(true)}>Submit test <CheckCircle2 size={15}/></button>}</div></div>
           <div className="gil-palette">{quiz.map((q,i)=><button key={q.id} className={i===index?"current":answers[q.id]!==undefined?"answered":marked.includes(q.id)?"marked":""} onClick={()=>setIndex(i)} aria-label={"Go to question "+(i+1)}>{i+1}</button>)}</div>
           {showConfirm&&<div className="gil-confirm"><div><strong>Submit this test?</strong><p>{quiz.filter(q=>answers[q.id]!==undefined).length} answered · {quiz.filter(q=>answers[q.id]===undefined).length} unattempted · {marked.length} marked for review</p><button onClick={finishTest}>Confirm submission</button><button className="gil-secondary" onClick={()=>setShowConfirm(false)}>Continue test</button></div></div>}
@@ -204,6 +200,6 @@ export function GpatIntelligenceLab() {
       {attempts.length?<><div className="gil-metrics"><article><span>TESTS COMPLETED</span><strong>{attempts.length}</strong><small>Saved in this browser</small></article><article><span>OVERALL ACCURACY</span><strong>{accuracy}%</strong><small>{correctAnswered} correct / {totalAnswered} questions</small></article><article><span>APPLICATION ACCURACY</span><strong>{appTotal?applicationAccuracy+"%":"—"}</strong><small>{appCorrect} / {appTotal} application questions</small></article><article><span>AVERAGE TIME / QUESTION</span><strong>{totalAnswered?Math.round(attempts.reduce((n,a)=>n+a.seconds,0)/totalAnswered)+"s":"—"}</strong><small>Across completed tests</small></article></div><div className="gil-panel"><h2>Recent performance</h2>{attempts.slice(0,10).map(a=><div className="gil-bar-row" key={a.id}><span>{new Date(a.date).toLocaleDateString()} · {a.mode}</span><div><i style={{width:pct(a.correct,a.total)+"%"}}/></div><strong>{pct(a.correct,a.total)}%</strong></div>)}</div><div className="gil-panel"><h2>Subject-wise accuracy</h2>{Array.from(new Set(attempts.flatMap(a=>a.questionIds.map(id=>gpatPyqs.find(q=>q.id===id)?.subject).filter(Boolean) as string[]))).map(s=>{const ids=attempts.flatMap(a=>a.questionIds).filter(id=>gpatPyqs.find(q=>q.id===id)?.subject===s);const good=ids.filter(id=>attempts.some(a=>a.correctQuestionIds?.includes(id)));return <div className="gil-bar-row" key={s}><span>{s}</span><div><i style={{width:pct(good.length,ids.length)+"%"}}/></div><strong>{pct(good.length,ids.length)}%</strong></div>})}</div></>:<div className="gil-empty gil-empty-large"><Target/><h2>Insights unlock after your first test.</h2><p>Complete a test to calculate accuracy, application gap, time per question and weak topics from your actual answers.</p><button onClick={()=>setTab("arena")}>Start a test</button></div>}
     </section>}
 
-    <footer className="gil-footer"><span>GPAT INTELLIGENCE LAB · SOURCE-ATTRIBUTED BANK</span><div className="gil-footer-links"><a href="https://admission.aglasem.com/gpat-question-papers/" target="_blank" rel="noreferrer">Public GPAT paper archive ↗</a><a href="https://pci.gov.in/en/syllabus-bachelor-of-pharmacy-b-pharm-2026-as-per-nep-2020/" target="_blank" rel="noreferrer">PCI syllabus ↗</a><Link href="/learning">Back to Learning Studio <ArrowRight size={14}/></Link></div></footer>
+    <footer className="gil-footer"><span>AKATSUKI TRIALS · GPAT PRACTICE</span><Link href="/learning">Back to Learning Studio <ArrowRight size={14}/></Link></footer>
   </div>;
 }
