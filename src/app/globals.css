@@ -1564,3 +1564,9 @@ body > main, body > .site-header, body > .site-footer { position: relative; z-in
 .gil-loading{padding:80px 0;text-align:center;color:var(--muted)}
 @media(max-width:800px){.gil-metrics{grid-template-columns:repeat(2,minmax(0,1fr))}.gil-feature-grid{grid-template-columns:1fr 1fr}.gil-feature:first-child{grid-column:1/-1}.gil-setup{grid-template-columns:1fr}.gil-concept-layout{grid-template-columns:1fr}.gil-concept-list{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:560px){.gil-topline{font-size:8px;letter-spacing:.08em}.gil-heading{padding:30px 0 20px}.gil-metrics{gap:7px}.gil-metrics article{padding:14px}.gil-metrics article strong{font-size:28px}.gil-feature-grid,.gil-columns{grid-template-columns:1fr}.gil-feature:first-child{grid-column:auto}.gil-feature{min-height:unset}.gil-form-grid{grid-template-columns:1fr}.gil-setup-footer,.gil-error-footer{align-items:flex-start;flex-direction:column}.gil-question{padding:18px}.gil-question-footer{padding:0 18px 16px;flex-direction:column}.gil-question-footer>div{justify-content:space-between}.gil-concept-list{grid-template-columns:1fr}.gil-bar-row{grid-template-columns:1fr 1.2fr 52px;gap:7px;font-size:10px}.gil-footer{font-size:8px;flex-direction:column}.learning-studio-tabs{gap:4px}.learning-studio-tabs a{font-size:10px;padding:8px}}
+
+.gil-answer-review{display:grid;gap:9px;width:100%;max-width:850px;margin-top:24px;text-align:left}
+.gil-answer-review article{padding:17px;border:1px solid var(--line);border-radius:10px;background:var(--gil-panel)}
+.gil-answer-review h3{font:500 18px var(--display);margin:0 0 10px}
+.gil-answer-review p{font-size:12px;line-height:1.65;color:var(--muted)}
+.gil-answer-review small{font:9px var(--mono);color:var(--muted)}
