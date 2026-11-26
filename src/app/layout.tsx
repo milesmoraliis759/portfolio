@@ -13,8 +13,8 @@ const themeScript = `(() => { try { const saved = localStorage.getItem("harsh-th
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
-  title: { default: "Harsh Mishra — Pharmaceutical Sciences", template: "%s · Harsh Mishra" },
-  description: "Pharmaceutical sciences, explained one mechanism at a time. Notes, reflections and practical learning by Harsh Mishra, a B.Pharm student.",
+  title: { default: "Harsh Mishra — Pharmaceutical Sciences & Learning Journal", template: "%s · Harsh Mishra" },
+  description: "A pharmaceutical sciences and learning journal by Harsh Mishra — B.Pharm notes, articles, practical experience and exam-focused learning.",
   alternates: { canonical: "/" },
   openGraph: { type: "website", url: siteUrl, title: "Harsh Mishra — Pharmaceutical Sciences", description: "A pharmacy student's notebook of medicines, mechanisms and practical learning.", siteName: "Harsh Mishra", images: [{ url: "/opengraph-image", width: 1200, height: 630, alt: "Harsh Mishra — Pharmaceutical Sciences" }] },
   twitter: { card: "summary_large_image", title: "Harsh Mishra — Pharmaceutical Sciences", description: "A pharmacy student's notebook of medicines, mechanisms and practical learning." },
