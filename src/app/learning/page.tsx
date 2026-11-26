@@ -25,6 +25,13 @@ export default function LearningPage() {
           and exam-focused details.
         </p>
       </div>
+      <nav className="learning-studio-tabs" aria-label="Learning Studio navigation">
+        <Link href="/learning" aria-current="page">Learning Library</Link>
+        <Link href="/practice">Practice Lab</Link>
+        <Link href="/pyqs">PYQs</Link>
+        <Link href="/revision">Revision Desk</Link>
+        <Link href="/gpat-intelligence-lab" className="is-featured">GPAT Intelligence Lab <span>NEW</span></Link>
+      </nav>
       <div className="learning-banner">
         <GraduationCap size={28}/>
         <div><strong>Learn the concept. Then revise the detail.</strong><p>Use these notes alongside standard textbooks, pharmacopoeias and course material.</p></div>
