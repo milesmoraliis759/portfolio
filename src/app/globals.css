@@ -1583,3 +1583,5 @@ body > main, body > .site-header, body > .site-footer { position: relative; z-in
 .main-nav a.nav-akatsuki[aria-current="page"]{color:var(--accent)!important}
 .main-nav a.icon-link::after{display:none}
 @media(prefers-reduced-motion:reduce){.main-nav a,.main-nav a::after{transition:none}}
+
+.main-nav a:focus-visible{outline:2px solid var(--accent);outline-offset:5px;border-radius:2px}
