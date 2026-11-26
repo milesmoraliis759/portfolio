@@ -5,6 +5,14 @@ import { usePathname } from "next/navigation";
 export function AkatsukiAtmosphere() {
   const pathname = usePathname();
   const rainyPage = pathname === "/search" || pathname.startsWith("/articles") || pathname.startsWith("/learning/");
+  const scene = pathname === "/" ? "home"
+    : pathname.startsWith("/learning") ? "learning"
+    : pathname.startsWith("/articles") ? "articles"
+    : pathname.startsWith("/about") ? "about"
+    : pathname.startsWith("/experience") ? "experience"
+    : pathname.startsWith("/search") ? "search"
+    : pathname.startsWith("/contact") ? "contact"
+    : "dojo";
 
   useEffect(() => {
     const finePointer = window.matchMedia("(pointer: fine)");
@@ -39,7 +47,7 @@ export function AkatsukiAtmosphere() {
   }, []);
 
   return (
-    <div className={`akatsuki-atmosphere${rainyPage ? " akatsuki-atmosphere--rain" : ""}`} aria-hidden="true">
+    <div className={`akatsuki-atmosphere akatsuki-atmosphere--${scene}${rainyPage ? " akatsuki-atmosphere--rain" : ""}`} aria-hidden="true">
       <div className="akatsuki-moon" />
       <div className="akatsuki-cloudscape akatsuki-cloudscape--distant" />
       <div className="akatsuki-cloudscape akatsuki-cloudscape--near" />
