@@ -47,7 +47,8 @@ function pct(a: number, b: number) { return b ? Math.round((a / b) * 100) : 0; }
 
 export function GpatIntelligenceLab() {
   const [saved, setSaved] = useState<SavedState>(freshState);
-  const [ready, setReady] = useState(false);\n  const [now, setNow] = useState(0);
+  const [ready, setReady] = useState(false);
+  const [now, setNow] = useState(0);
   const [tab, setTab] = useState("overview");
   const [mode, setMode] = useState("quick");
   const [subject, setSubject] = useState("All subjects");
