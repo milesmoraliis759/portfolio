@@ -1,6 +1,6 @@
 export type GpatQuestion = {
   id: string;
-  year: 2014 | 2019;
+  year: number;
   number: number;
   page: number;
   subject: string;
