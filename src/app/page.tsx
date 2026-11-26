@@ -41,10 +41,10 @@ export default function HomePage() {
   return (
     <main>
       <section className="portfolio-home container akatsuki-home">
-        <div className="akatsuki-hero-art" aria-hidden="true"><span>AKATSUKI</span><small>THE SHADOW ORGANIZATION</small></div>
+        <div className="akatsuki-hero-art" aria-hidden="true"><span>暁 · AKATSUKI</span><small>THE CRIMSON ARCHIVE / FIELD LOG 001</small></div>
         <div className="portfolio-home-intro">
           <div className="portfolio-home-copy">
-            <p className="eyebrow"><span className="portfolio-status-dot" /> BACHELOR OF PHARMACY · INDIA</p>
+            <p className="eyebrow"><span className="portfolio-status-dot" /> THE CRIMSON ARCHIVE · INDIA</p>
             <h1>Harsh Mishra<span>.</span></h1>
             <p className="portfolio-home-role">B.Pharm student · Pharmaceutical sciences · Lifelong learner</p>
             <p className="portfolio-home-summary">
@@ -77,8 +77,8 @@ export default function HomePage() {
         <div className="container">
           <div className="portfolio-destinations-heading">
             <div>
-              <p className="eyebrow">EXPLORE THIS SPACE</p>
-              <h2>A little about my<br/><em>work and learning.</em></h2>
+              <p className="eyebrow">SELECT A DESTINATION · 01—04</p>
+              <h2>Enter the archive.<br/><em>Explore my journey.</em></h2>
             </div>
             <p>Choose a section to explore my academic work, writing and experiences in pharmacy.</p>
           </div>
