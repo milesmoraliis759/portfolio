@@ -671,11 +671,12 @@ body > main, body > .site-header, body > .site-footer { position: relative; z-in
 .pulse, .portfolio-status-dot { background: var(--accent); box-shadow: 0 0 12px rgba(181,18,36,.55); }
 .portfolio-home { position: relative; padding-top: clamp(72px, 10vw, 130px); }
 .portfolio-home::before {
-  content: ""; position: absolute; z-index: -1; width: min(45vw, 560px); aspect-ratio: 1;
+  content: ""; position: absolute; z-index: 0; width: min(45vw, 560px); aspect-ratio: 1;
   top: 5%; right: -13%; border-radius: 50%;
   background: radial-gradient(circle, rgba(181,18,36,.11), rgba(114,13,28,.05) 42%, transparent 72%);
   filter: blur(18px); pointer-events: none;
 }
+.portfolio-home-intro, .portfolio-home-meta { position: relative; z-index: 1; }
 .portfolio-home-copy h1 { text-shadow: 0 0 42px rgba(181,18,36,.13); }
 .portfolio-home-role { color: #d15a67; letter-spacing: .1em; text-transform: uppercase; }
 .portfolio-home-summary { color: var(--text-soft); }
@@ -692,10 +693,11 @@ body > main, body > .site-header, body > .site-footer { position: relative; z-in
 .portfolio-home-note { color: var(--muted); }
 .page-shell { position: relative; }
 .page-shell::before {
-  content: ""; position: absolute; z-index: -1; pointer-events: none;
+  content: ""; position: absolute; z-index: 0; pointer-events: none;
   width: min(42vw, 480px); height: 380px; top: 5px; right: -12%;
   background: radial-gradient(ellipse, rgba(181,18,36,.075), transparent 70%); filter: blur(28px);
 }
+.page-shell > * { position: relative; z-index: 1; }
 .page-shell.search-archive::after {
   content: ""; position: absolute; z-index: -1; pointer-events: none; inset: 0;
   opacity: .11; background: repeating-linear-gradient(108deg, transparent 0 31px, rgba(177,190,200,.12) 32px, transparent 33px 65px);
@@ -736,9 +738,10 @@ body > main, body > .site-header, body > .site-footer { position: relative; z-in
 .mdx-prose blockquote { background: rgba(181,18,36,.055); }
 .about-page .about-hero-grid { position: relative; }
 .about-page .about-hero-grid::after {
-  content: "暁"; position: absolute; z-index: -1; right: 16%; top: -28px;
+  content: "暁"; position: absolute; z-index: 0; right: 16%; top: -28px;
   color: rgba(181,18,36,.09); font: 140px/1 var(--display); pointer-events: none;
 }
+.about-page .about-hero-grid > * { position: relative; z-index: 1; }
 .values-grid article { background: rgba(17,17,17,.8); transition: transform .25s ease, border-color .25s ease, box-shadow .25s ease; }
 .values-grid article:hover { transform: translateY(-3px); border-color: rgba(181,18,36,.55); box-shadow: 0 12px 30px rgba(181,18,36,.07); }
 .site-footer { position: relative; overflow: hidden; background: rgba(12,12,12,.94); border-color: rgba(146,146,146,.16); }
