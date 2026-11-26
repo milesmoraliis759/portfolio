@@ -897,3 +897,117 @@ body > main, body > .site-header, body > .site-footer { position: relative; z-in
   .akatsuki-moon { transform: none !important; will-change: auto; }
   .content-card::before { transition: none; }
 }
+
+/* AKATSUKI ART DIRECTION — image-led atmosphere */
+:root {
+  --bg: #f3eeeb; --surface: #fffaf8; --surface-2: #eae1de;
+  --text: #211a1b; --text-soft: #463a3c; --muted: #6f6062; --subtle: #938386;
+  --border: #dfd1d0; --accent: #b51224; --accent-soft: #f5e2e4;
+}
+:root[data-theme="dark"] {
+  color-scheme: dark; --bg: #080808; --surface: #111010; --surface-2: #1a1415;
+  --text: #f0e9e8; --text-soft: #d0c2c2; --muted: #a39395; --subtle: #766568;
+  --border: #332326; --accent: #e12b40; --accent-soft: #321116;
+}
+.button-primary { color: #fff; background: #9f1021; border-color: #9f1021; }
+:root[data-theme="dark"] .button-primary { color: #fff; background: #b51224; border-color: #b51224; }
+.button-primary:hover { background: #d11d32; border-color: #d11d32; }
+:root[data-theme="dark"] .akatsuki-atmosphere { opacity: .95; }
+.akatsuki-atmosphere { overflow: hidden; }
+.akatsuki-moon {
+  background: radial-gradient(circle at 38% 34%, rgba(255,222,222,.8), rgba(181,18,36,.82) 47%, rgba(114,13,28,.88) 68%, rgba(30,5,10,.25) 72%, transparent 74%);
+  box-shadow: 0 0 65px rgba(181,18,36,.24), 0 0 180px rgba(181,18,36,.14);
+}
+:root[data-theme="light"] .akatsuki-moon {
+  opacity: .32; filter: saturate(.92) contrast(1.06);
+  box-shadow: 0 0 70px rgba(181,18,36,.18), 0 0 190px rgba(181,18,36,.1);
+}
+:root[data-theme="dark"] .akatsuki-moon { opacity: .26; }
+.akatsuki-cloudscape { mix-blend-mode: multiply; }
+:root[data-theme="dark"] .akatsuki-cloudscape { mix-blend-mode: screen; opacity: .25; }
+.akatsuki-cloud-mark { color: rgba(181,18,36,.25); }
+:root[data-theme="dark"] .akatsuki-cloud-mark { color: rgba(225,43,64,.22); }
+.akatsuki-home { position: relative; isolation: isolate; }
+.akatsuki-home-intro { position: relative; isolation: isolate; }
+.akatsuki-hero-art {
+  position: absolute; z-index: -1; top: 12px; right: -7vw; width: min(74vw, 900px);
+  height: min(52vw, 540px); min-height: 330px; pointer-events: none; overflow: hidden;
+  background:
+    linear-gradient(90deg, var(--bg) 0%, color-mix(in srgb,var(--bg) 12%,transparent) 34%, rgba(8,8,8,.1) 100%),
+    linear-gradient(0deg, var(--bg) 0%, transparent 46%, rgba(8,8,8,.1) 100%),
+    url("https://rare-gallery.com/fullwalls/2994-Hidan-Naruto-Zetsu-Naruto-Pain-Naruto-Obito.jpg") center 30% / cover no-repeat;
+  opacity: .52; filter: saturate(.82) contrast(1.08);
+  mask-image: linear-gradient(90deg, transparent 0%, #000 28%, #000 82%, transparent 100%), linear-gradient(0deg, transparent 0%, #000 18%, #000 85%, transparent 100%);
+  mask-composite: intersect;
+}
+:root[data-theme="light"] .akatsuki-hero-art { opacity: .22; filter: saturate(.9) contrast(1.1); }
+:root[data-theme="dark"] .akatsuki-hero-art { opacity: .5; }
+.akatsuki-hero-art span {
+  position: absolute; right: 12%; top: 13%; color: rgba(240,220,220,.7);
+  font: 600 clamp(22px,4vw,48px) var(--display); letter-spacing: .3em;
+  text-shadow: 0 0 30px rgba(181,18,36,.7);
+}
+.akatsuki-hero-art small {
+  position: absolute; right: 12%; top: calc(13% + 58px); color: rgba(240,220,220,.68);
+  font: 9px var(--mono); letter-spacing: .24em;
+}
+.akatsuki-learning-hero { position: relative; isolation: isolate; }
+.akatsuki-learning-art {
+  position: absolute; z-index: -1; top: -34px; right: -35px; width: min(55%, 430px); height: 330px;
+  overflow: hidden; pointer-events: none; border: 1px solid rgba(181,18,36,.18);
+  border-radius: 4px;
+  background:
+    linear-gradient(90deg, var(--bg) 0%, rgba(8,8,8,.16) 100%),
+    linear-gradient(0deg, var(--bg) 0%, transparent 55%),
+    url("https://wallpapers.com/images/hd/naruto-series-akatsuki-fighters-0p2j9eb5j7mohv91.jpg") center / cover no-repeat;
+  opacity: .48; filter: saturate(.85);
+  mask-image: linear-gradient(90deg, transparent, #000 35%, #000 90%, transparent), linear-gradient(0deg, transparent, #000 20%, #000 100%);
+  mask-composite: intersect;
+}
+:root[data-theme="light"] .akatsuki-learning-art { opacity: .19; }
+:root[data-theme="dark"] .akatsuki-learning-art { opacity: .42; }
+.akatsuki-learning-art::after {
+  content: ""; position: absolute; inset: 0;
+  background: radial-gradient(circle at 70% 45%, transparent 0 22%, rgba(181,18,36,.18) 70%, transparent 100%);
+}
+.akatsuki-learning-art span {
+  position: absolute; right: 22px; top: 10px; color: rgba(181,18,36,.75);
+  font: 76px var(--display); text-shadow: 0 0 25px rgba(181,18,36,.45);
+}
+.akatsuki-learning-art small {
+  position: absolute; right: 18px; bottom: 15px; color: var(--muted);
+  font: 8px var(--mono); letter-spacing: .16em;
+}
+:root[data-theme="light"] .learning-archive .page-hero h1 em { color: #9d1424; }
+:root[data-theme="dark"] .learning-archive .page-hero h1 em { color: #ef5364; }
+:root[data-theme="light"] .learning-archive .learning-banner {
+  color: var(--accent); background: linear-gradient(115deg, rgba(255,250,248,.94), rgba(244,225,227,.92));
+  border-color: rgba(181,18,36,.22); box-shadow: inset 3px 0 0 rgba(181,18,36,.72), 0 12px 34px rgba(74,21,31,.06);
+}
+:root[data-theme="dark"] .learning-archive .learning-banner {
+  background: linear-gradient(115deg, rgba(26,17,19,.96), rgba(37,16,20,.9));
+  border-color: rgba(225,43,64,.24); box-shadow: inset 3px 0 0 rgba(225,43,64,.72), 0 12px 34px rgba(0,0,0,.24);
+}
+:root[data-theme="light"] .learning-tools a {
+  background: linear-gradient(145deg, #fffaf8, #f0e6e4); border-color: rgba(114,13,28,.15);
+  box-shadow: 0 9px 24px rgba(58,24,29,.055);
+}
+:root[data-theme="dark"] .learning-tools a {
+  background: linear-gradient(145deg, #171112, #211316); border-color: rgba(225,43,64,.17);
+}
+.learning-tools a { transition: transform .25s ease, border-color .25s ease, box-shadow .25s ease; }
+.learning-tools a:hover, .learning-tools a:focus-visible {
+  transform: translateY(-3px); border-color: rgba(181,18,36,.55);
+  box-shadow: 0 14px 34px rgba(181,18,36,.12);
+}
+.akatsuki-hero-art, .akatsuki-learning-art { will-change: opacity; }
+@media (max-width: 700px) {
+  .akatsuki-hero-art { top: 0; right: -18px; width: 112%; height: 360px; min-height: 0; opacity: .22; }
+  :root[data-theme="dark"] .akatsuki-hero-art { opacity: .34; }
+  .akatsuki-learning-art { top: -10px; right: -18px; width: 76%; height: 230px; opacity: .15; }
+  :root[data-theme="dark"] .akatsuki-learning-art { opacity: .3; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .learning-tools a { transition: none; }
+  .learning-tools a:hover, .learning-tools a:focus-visible { transform: none; }
+}

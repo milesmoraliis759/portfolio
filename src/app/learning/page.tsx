@@ -15,7 +15,8 @@ export default function LearningPage() {
   return (
     <section className="page-shell container learning-archive">
       <div className="section-kicker"><span>01</span> / THE LEARNING STUDIO</div>
-      <div className="page-hero">
+      <div className="page-hero akatsuki-learning-hero">
+        <div className="akatsuki-learning-art" aria-hidden="true"><span>暁</span><small>AMEGAKURE · THE RED CLOUDS</small></div>
         <p className="eyebrow">A NOTEBOOK FOR PHARMACY STUDENTS</p>
         <h1>Understand first.<br/><em>Memorise later.</em></h1>
         <p className="page-lede">
