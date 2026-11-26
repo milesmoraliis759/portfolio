@@ -1570,3 +1570,8 @@ body > main, body > .site-header, body > .site-footer { position: relative; z-in
 .gil-answer-review h3{font:500 18px var(--display);margin:0 0 10px}
 .gil-answer-review p{font-size:12px;line-height:1.65;color:var(--muted)}
 .gil-answer-review small{font:9px var(--mono);color:var(--muted)}
+
+.main-nav a.nav-akatsuki{color:var(--accent);position:relative}
+.main-nav a.nav-akatsuki::before{content:"";display:inline-block;width:6px;height:6px;margin:0 7px 1px 0;border-radius:50%;background:var(--accent);box-shadow:0 0 9px color-mix(in srgb,var(--accent) 65%,transparent)}
+.main-nav a.nav-akatsuki:hover{color:var(--text)}
+@media(max-width:560px){.main-nav{gap:12px}.main-nav a{font-size:10px}.main-nav a.nav-akatsuki::before{width:5px;height:5px;margin-right:4px}}
