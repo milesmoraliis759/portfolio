@@ -935,7 +935,7 @@ body > main, body > .site-header, body > .site-footer { position: relative; z-in
   background:
     linear-gradient(90deg, var(--bg) 0%, color-mix(in srgb,var(--bg) 12%,transparent) 34%, rgba(8,8,8,.1) 100%),
     linear-gradient(0deg, var(--bg) 0%, transparent 46%, rgba(8,8,8,.1) 100%),
-    url("https://rare-gallery.com/fullwalls/2994-Hidan-Naruto-Zetsu-Naruto-Pain-Naruto-Obito.jpg") center 30% / cover no-repeat;
+    url("/akatsuki/clan.webp") center 30% / cover no-repeat;
   opacity: .52; filter: saturate(.82) contrast(1.08);
   mask-image: linear-gradient(90deg, transparent 0%, #000 28%, #000 82%, transparent 100%), linear-gradient(0deg, transparent 0%, #000 18%, #000 85%, transparent 100%);
   mask-composite: intersect;
@@ -959,7 +959,7 @@ body > main, body > .site-header, body > .site-footer { position: relative; z-in
   background:
     linear-gradient(90deg, var(--bg) 0%, rgba(8,8,8,.16) 100%),
     linear-gradient(0deg, var(--bg) 0%, transparent 55%),
-    url("https://wallpapers.com/images/hd/naruto-series-akatsuki-fighters-0p2j9eb5j7mohv91.jpg") center / cover no-repeat;
+    url("/akatsuki/clan.webp") center / cover no-repeat;
   opacity: .48; filter: saturate(.85);
   mask-image: linear-gradient(90deg, transparent, #000 35%, #000 90%, transparent), linear-gradient(0deg, transparent, #000 20%, #000 100%);
   mask-composite: intersect;
@@ -1010,4 +1010,116 @@ body > main, body > .site-header, body > .site-footer { position: relative; z-in
 @media (prefers-reduced-motion: reduce) {
   .learning-tools a { transition: none; }
   .learning-tools a:hover, .learning-tools a:focus-visible { transform: none; }
+}
+
+
+/* GENJUTSU ART DIRECTION — use the supplied Akatsuki artwork as the living backdrop. */
+.akatsuki-atmosphere::before {
+  content: ""; position: absolute; inset: 0; pointer-events: none;
+  background-image: linear-gradient(180deg, rgba(8,8,8,.16), transparent 38%, rgba(8,8,8,.26)),
+    url("/akatsuki/clan.webp");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center 28%;
+  opacity: .075;
+  filter: saturate(.92) contrast(1.08);
+  transition: opacity .8s ease, background-position 1.2s ease, filter .8s ease;
+}
+.akatsuki-moon {
+  width: clamp(240px, 37vw, 510px);
+  aspect-ratio: 1;
+  border-radius: 0;
+  background: url("/akatsuki/moon.webp") center / contain no-repeat;
+  box-shadow: none;
+  filter: drop-shadow(0 0 30px rgba(181,18,36,.22)) saturate(1.08);
+  opacity: .78;
+  animation: moon-art-breathe 16s ease-in-out infinite alternate;
+}
+@keyframes moon-art-breathe {
+  from { opacity: .64; filter: drop-shadow(0 0 20px rgba(181,18,36,.16)) saturate(.94); }
+  to { opacity: .86; filter: drop-shadow(0 0 48px rgba(181,18,36,.32)) saturate(1.12); }
+}
+.akatsuki-atmosphere--home::before { opacity: .14; background-position: center 18%; }
+.akatsuki-atmosphere--learning::before { opacity: .095; background-position: center 12%; }
+.akatsuki-atmosphere--articles::before { opacity: .12; background-position: center 43%; }
+.akatsuki-atmosphere--about::before { opacity: .11; background-position: center 31%; }
+.akatsuki-atmosphere--experience::before { opacity: .09; background-position: center 56%; }
+.akatsuki-atmosphere--search::before { opacity: .13; background-position: center 68%; }
+.akatsuki-atmosphere--contact::before { opacity: .1; background-position: center 82%; }
+.akatsuki-atmosphere--dojo::before { opacity: .1; background-position: center 50%; }
+:root[data-theme="light"] .akatsuki-atmosphere::before {
+  opacity: .045;
+  background-image: linear-gradient(180deg, rgba(255,250,250,.5), rgba(255,250,250,.3)),
+    url("/akatsuki/clan.webp");
+  filter: saturate(.62) contrast(.9);
+}
+:root[data-theme="light"] .akatsuki-atmosphere--home::before,
+:root[data-theme="light"] .akatsuki-atmosphere--articles::before,
+:root[data-theme="light"] .akatsuki-atmosphere--search::before { opacity: .07; }
+:root[data-theme="light"] .akatsuki-moon {
+  opacity: .28;
+  filter: drop-shadow(0 0 22px rgba(181,18,36,.12)) saturate(.78);
+}
+:root[data-theme="light"] .akatsuki-hero-art {
+  background:
+    linear-gradient(90deg, var(--bg) 0%, color-mix(in srgb,var(--bg) 12%,transparent) 34%, rgba(8,8,8,.1) 100%),
+    linear-gradient(0deg, var(--bg) 0%, transparent 46%, rgba(8,8,8,.1) 100%),
+    url("/akatsuki/clan.webp") center 26% / cover no-repeat;
+  opacity: .23;
+}
+:root[data-theme="dark"] .akatsuki-hero-art { background-image:
+  linear-gradient(90deg, var(--bg) 0%, color-mix(in srgb,var(--bg) 12%,transparent) 34%, rgba(8,8,8,.1) 100%),
+  linear-gradient(0deg, var(--bg) 0%, transparent 46%, rgba(8,8,8,.1) 100%),
+  url("/akatsuki/clan.webp"); }
+.akatsuki-learning-art {
+  background:
+    linear-gradient(90deg, var(--bg) 0%, rgba(8,8,8,.16) 100%),
+    linear-gradient(0deg, var(--bg) 0%, transparent 55%),
+    url("/akatsuki/clan.webp") center 34% / cover no-repeat;
+}
+:root[data-theme="light"] .akatsuki-learning-art { opacity: .22; }
+:root[data-theme="dark"] .akatsuki-learning-art { opacity: .5; }
+
+/* Each destination and content card reveals a different depth of the hidden village on hover. */
+.portfolio-destination { position: relative; isolation: isolate; overflow: hidden; }
+.portfolio-destination::before {
+  content: ""; position: absolute; inset: 0; z-index: -1; opacity: 0;
+  background: linear-gradient(90deg, rgba(8,8,8,.96), rgba(8,8,8,.62)),
+    url("/akatsuki/clan.webp") center 32% / cover no-repeat;
+  transition: opacity .45s ease, transform .7s ease;
+  transform: scale(1.04);
+}
+.portfolio-destination:hover::before, .portfolio-destination:focus-visible::before { opacity: .82; transform: scale(1); }
+.content-card { isolation: isolate; }
+.content-card::after {
+  content: ""; position: absolute; inset: 0; z-index: 0; pointer-events: none; opacity: 0;
+  background: linear-gradient(135deg, rgba(8,8,8,.95), rgba(24,5,10,.56)),
+    url("/akatsuki/clan.webp") center 38% / cover no-repeat;
+  transition: opacity .4s ease;
+}
+.content-card:hover::after, .content-card:focus-visible::after { opacity: .28; }
+.content-card > * { position: relative; z-index: 1; }
+:root[data-theme="light"] .portfolio-destination::before {
+  background: linear-gradient(90deg, rgba(255,250,250,.96), rgba(255,250,250,.74)),
+    url("/akatsuki/clan.webp") center 32% / cover no-repeat;
+}
+:root[data-theme="light"] .content-card::after {
+  background: linear-gradient(135deg, rgba(255,250,250,.96), rgba(245,231,233,.78)),
+    url("/akatsuki/clan.webp") center 38% / cover no-repeat;
+}
+:root[data-theme="light"] .content-card:hover::after,
+:root[data-theme="light"] .content-card:focus-visible::after { opacity: .56; }
+@media (hover: none), (pointer: coarse) {
+  .portfolio-destination::before { opacity: .18; }
+  .content-card::after { opacity: .06; }
+  .portfolio-destination:active::before, .content-card:active::after { opacity: .5; }
+}
+@media (max-width: 700px) {
+  .akatsuki-moon { width: 280px; right: -72px; top: 125px; opacity: .56; }
+  .akatsuki-atmosphere::before { background-position: center 18%; opacity: .055; }
+  :root[data-theme="light"] .akatsuki-atmosphere::before { opacity: .035; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .akatsuki-moon { animation: none; }
+  .akatsuki-atmosphere::before, .portfolio-destination::before, .content-card::after { transition: none; }
 }
