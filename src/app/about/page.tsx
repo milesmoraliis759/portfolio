@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 
 export default function AboutPage() {
   return (
-    <section className="page-shell container">
+    <section className="page-shell container about-page">
       <div className="section-kicker"><span>01</span> / ABOUT ME</div>
       <div className="about-hero-grid">
         <div className="page-hero">
