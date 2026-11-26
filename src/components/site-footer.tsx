@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { ArrowUpRight, Linkedin, Mail } from "lucide-react";
+import { SharinganDetail } from "@/components/sharingan-detail";
 
 export function SiteFooter() {
   return (
@@ -13,6 +14,7 @@ export function SiteFooter() {
           <p className="eyebrow">PHARMACEUTICAL SCIENCES · LEARNING JOURNAL</p>
           <h2>Keep asking <em>why.</em></h2>
           <p className="footer-copy">A student’s notebook of medicines, mechanisms and the practical work behind healthcare.</p>
+          <SharinganDetail />
         </div>
         <div className="footer-links">
           <Link href="mailto:mishraharsh759@gmail.com"><Mail size={15}/> Email</Link>
