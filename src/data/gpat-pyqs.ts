@@ -110,5 +110,5 @@ export const gpatPyqs: GpatQuestion[] = [
 export const gpatSubjects = [
   "All subjects","Organic Chemistry","Physical Pharmaceutics","Pharmaceutics","Pharmaceutical Biotechnology",
   "Biochemistry","Pharmaceutical Analysis","Pharmaceutical Microbiology","Pharmaceutical Chemistry",
-  "Pharmacology","Pharmacognosy","Biopharmaceutics"
+  "Pharmacology","Pharmacognosy","Biopharmaceutics","Industrial Pharmacy","Pharmaceutical Jurisprudence"
 ];

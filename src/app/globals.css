@@ -1585,3 +1585,10 @@ body > main, body > .site-header, body > .site-footer { position: relative; z-in
 @media(prefers-reduced-motion:reduce){.main-nav a,.main-nav a::after{transition:none}}
 
 .main-nav a:focus-visible{outline:2px solid var(--accent);outline-offset:5px;border-radius:2px}
+
+/* Four compact selectors: subject, topic, question type and timing. */
+.gil-form-grid{grid-template-columns:repeat(4,minmax(0,1fr))}
+@media(max-width:800px){.gil-form-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:560px){.gil-form-grid{grid-template-columns:1fr}}
+.gil-footer-links{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.gil-footer-links a{color:var(--accent)}
