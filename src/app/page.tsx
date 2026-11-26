@@ -41,6 +41,7 @@ export default function HomePage() {
   return (
     <main>
       <section className="portfolio-home container akatsuki-home">
+        <div className="akatsuki-hero-art" aria-hidden="true"><span>AKATSUKI</span><small>THE SHADOW ORGANIZATION</small></div>
         <div className="portfolio-home-intro">
           <div className="portfolio-home-copy">
             <p className="eyebrow"><span className="portfolio-status-dot" /> BACHELOR OF PHARMACY · INDIA</p>
