@@ -62,11 +62,9 @@ export function GpatIntelligenceLab() {
   const [submitted, setSubmitted] = useState(false);
   const [showConfirm, setShowConfirm] = useState(false);
   const [activeConcept, setActiveConcept] = useState(concepts[0].title);
-  const [now, setNow] = useState(0);
 
   // Hydrate browser-only progress after mount; localStorage is unavailable during server rendering.
-  // eslint-disable-next-line react-hooks/set-state-in-effect
-  useEffect(() => { setSaved(readState()); setReady(true); setNow(Date.now()); }, []);
+  useEffect(() => { setSaved(readState()); setReady(true); setNow(Date.now()); }, [setNow]);
   useEffect(() => { if (ready) localStorage.setItem(KEY, JSON.stringify(saved)); }, [saved, ready]);
   useEffect(() => {
     if (!quiz.length || submitted || !timed) return;
