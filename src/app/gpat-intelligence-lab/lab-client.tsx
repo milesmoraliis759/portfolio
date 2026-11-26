@@ -48,7 +48,7 @@ function pct(a: number, b: number) { return b ? Math.round((a / b) * 100) : 0; }
 
 export function GpatIntelligenceLab() {
   const [saved, setSaved] = useState<SavedState>(freshState);
-  const [ready, setReady] = useState(false);
+  const [ready, setReady] = useState(false);\n  const [now, setNow] = useState(0);
   const [tab, setTab] = useState("overview");
   const [mode, setMode] = useState("quick");
   const [subject, setSubject] = useState("All subjects");
@@ -88,7 +88,7 @@ export function GpatIntelligenceLab() {
   const directAttempts = attempts.reduce((n, a) => n + (a.total - a.applicationTotal), 0);
   const directCorrect = attempts.reduce((n, a) => n + (a.correct - a.applicationCorrect), 0);
   const applicationGap = pct(directCorrect, directAttempts) - applicationAccuracy;
-  const dueItems = saved.errors.filter(e => new Date(e.due).getTime() <= Date.now());
+  const dueItems = saved.errors.filter(e => now > 0 && new Date(e.due).getTime() <= now);
   const currentQuestion = current;
 
   function startTest() {
@@ -171,7 +171,7 @@ export function GpatIntelligenceLab() {
           <div className="gil-form-grid"><label>Subject<select value={subject} onChange={e=>setSubject(e.target.value)}>{gpatSubjects.map(s=><option key={s}>{s}</option>)}</select></label><label>Question type<select value={difficulty} onChange={e=>setDifficulty(e.target.value)}>{["All","Direct","Conceptual","Application","Numerical"].map(s=><option key={s}>{s}</option>)}</select></label><label>Mode<select value={timed?"Timed":"Untimed"} onChange={e=>setTimed(e.target.value==="Timed")}><option>Untimed</option><option>Timed</option></select></label></div>
           <div className="gil-setup-footer"><span>{eligible.length} verified source questions available for this selection. Test length is capped to the available question pool.</span><button onClick={startTest} disabled={!eligible.length}>Start test <ArrowRight size={16}/></button></div>
         </div>
-        <aside className="gil-panel gil-test-rules"><h3>Question provenance</h3><p>Each PYQ shows its year, original question number and PDF page. Source answer keys are preserved; questionable items are withheld from scoring.</p><h3>Marking scheme</h3><p>Neutral scoring is used for this first bank: +1 correct, 0 incorrect or skipped. Configure coaching-specific negative marking when you add that test's rules.</p></aside>
+        <aside className="gil-panel gil-test-rules"><h3>Question provenance</h3><p>Each PYQ shows its year, original question number and PDF page. Source answer keys are preserved; questionable items are withheld from scoring.</p><h3>Marking scheme</h3><p>Neutral scoring is used for this first bank: +1 correct, 0 incorrect or skipped. Configure coaching-specific negative marking when you add that test&apos;s rules.</p></aside>
       </div> : <div className="gil-test">
         <div className="gil-test-bar"><span>{modes.find(m=>m.id===mode)?.label} · {index+1}/{quiz.length}</span><span><Clock3 size={15}/>{timed?formatTime(seconds):"Untimed"}</span></div>
         {submitted ? <div className="gil-result"><Trophy/><p className="gil-kicker">TEST COMPLETE</p><h2>{quiz.filter(q=>answers[q.id]===q.answer).length} / {quiz.length} correct</h2><strong>{pct(quiz.filter(q=>answers[q.id]===q.answer).length,quiz.length)}% accuracy</strong><p>Incorrect and skipped questions have been added to your Error Notebook with a next-day revision date.</p><div className="gil-result-actions"><button onClick={()=>{setQuiz([]);setTab("errors");}}>Review mistakes</button><button className="gil-secondary" onClick={()=>setQuiz([])}>Back to test setup</button></div><div className="gil-answer-review">{quiz.map((q,i)=><article key={q.id}><div className="gil-question-meta"><span>GPAT {q.year} · Q{q.number}</span><span>{q.subject}</span><span>{answers[q.id]===q.answer?"Correct":answers[q.id]===undefined?"Skipped":"Incorrect"}</span></div><h3>{i+1}. {q.prompt}</h3><p><strong>Correct answer:</strong> {q.options[q.answer]}</p><p>{q.explanation}</p><small>{q.source}</small></article>)}</div></div> : <>
