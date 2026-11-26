@@ -41,7 +41,15 @@ export default function HomePage() {
   return (
     <main>
       <section className="portfolio-home container akatsuki-home">
-        <div className="akatsuki-hero-art" aria-hidden="true"><span>暁 · AKATSUKI</span><small>THE CRIMSON ARCHIVE / FIELD LOG 001</small></div>
+        <div className="akatsuki-hero-seal" aria-hidden="true">
+          <span className="akatsuki-seal-kanji">暁</span>
+          <svg viewBox="0 0 240 150" fill="none" role="presentation">
+            <circle cx="120" cy="75" r="62" stroke="currentColor" strokeWidth="1.5" />
+            <circle cx="120" cy="75" r="53" stroke="currentColor" strokeWidth=".7" strokeDasharray="2 7" />
+            <path d="M36 88c-12-6-14-19-5-28 7-8 19-10 31-7 2-18 18-30 36-27 13 2 22 10 26 23 15-9 34-7 44 6 7 9 7 22 0 30 13 1 22 10 23 21 1 14-11 25-28 25H66c-18 0-32-11-32-25 0-7 1-12 2-18Z" stroke="currentColor" strokeWidth="5" strokeLinejoin="round"/>
+          </svg>
+          <small>THE CRIMSON ARCHIVE</small>
+        </div>
         <div className="portfolio-home-intro">
           <div className="portfolio-home-copy">
             <p className="eyebrow"><span className="portfolio-status-dot" /> THE CRIMSON ARCHIVE · INDIA</p>
