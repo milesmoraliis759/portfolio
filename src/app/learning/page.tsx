@@ -13,7 +13,7 @@ export default function LearningPage() {
   const items = getAllContent("learning");
 
   return (
-    <section className="page-shell container">
+    <section className="page-shell container learning-archive">
       <div className="section-kicker"><span>01</span> / THE LEARNING STUDIO</div>
       <div className="page-hero">
         <p className="eyebrow">A NOTEBOOK FOR PHARMACY STUDENTS</p>

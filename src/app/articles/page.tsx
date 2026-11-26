@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 export default function ArticlesPage() {
   const items = getAllContent("articles");
   return (
-    <section className="page-shell container">
+    <section className="page-shell container article-index">
       <div className="section-kicker"><span>02</span> / THE JOURNAL</div>
       <div className="page-hero">
         <p className="eyebrow">WRITING & REFLECTIONS</p>

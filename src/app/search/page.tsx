@@ -12,7 +12,7 @@ export default function SearchPage() {
     ({ slug, kind, title, description, category, date, readTime })
   );
   return (
-    <section className="page-shell container">
+    <section className="page-shell container search-archive">
       <div className="section-kicker"><span>00</span> / SITE SEARCH</div>
       <div className="page-hero">
         <p className="eyebrow">FIND A CONCEPT</p>
