@@ -64,7 +64,16 @@ export function GpatIntelligenceLab() {
   const [activeConcept, setActiveConcept] = useState(concepts[0].title);
 
   // Hydrate browser-only progress after mount; localStorage is unavailable during server rendering.
-  useEffect(() => { setSaved(readState()); setReady(true); setNow(Date.now()); }, [setNow]);
+  useEffect(() => {
+    let active = true;
+    Promise.resolve().then(() => {
+      if (!active) return;
+      setSaved(readState());
+      setReady(true);
+      setNow(Date.now());
+    });
+    return () => { active = false; };
+  }, []);
   useEffect(() => { if (ready) localStorage.setItem(KEY, JSON.stringify(saved)); }, [saved, ready]);
   useEffect(() => {
     if (!quiz.length || submitted || !timed) return;
