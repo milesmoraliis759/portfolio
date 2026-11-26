@@ -40,7 +40,7 @@ const destinations = [
 export default function HomePage() {
   return (
     <main>
-      <section className="portfolio-home container">
+      <section className="portfolio-home container akatsuki-home">
         <div className="portfolio-home-intro">
           <div className="portfolio-home-copy">
             <p className="eyebrow"><span className="portfolio-status-dot" /> BACHELOR OF PHARMACY · INDIA</p>
