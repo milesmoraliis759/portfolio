@@ -53,6 +53,7 @@ export function GpatIntelligenceLab() {
   const [mode, setMode] = useState("quick");
   const [subject, setSubject] = useState("All subjects");
   const [difficulty, setDifficulty] = useState("All");
+  const [topic, setTopic] = useState("All topics");
   const [timed, setTimed] = useState(false);
   const [seconds, setSeconds] = useState(0);
   const [quiz, setQuiz] = useState<GpatQuestion[]>([]);
@@ -85,8 +86,10 @@ export function GpatIntelligenceLab() {
   const eligible = useMemo(() => gpatPyqs.filter(q =>
     q.verified &&
     (subject === "All subjects" || q.subject === subject) &&
+    (topic === "All topics" || q.topic === topic) &&
     (difficulty === "All" || (difficulty === "Application" ? q.type === "Application" || q.type === "Numerical" : q.type === difficulty))
-  ), [subject, difficulty]);
+  ), [subject, topic, difficulty]);
+  const availableTopics = useMemo(() => Array.from(new Set(gpatPyqs.filter(q => q.verified && (subject === "All subjects" || q.subject === subject)).map(q => q.topic))).sort(), [subject]);
   const attempts = saved.attempts;
   const totalAnswered = attempts.reduce((n, a) => n + a.total, 0);
   const correctAnswered = attempts.reduce((n, a) => n + a.correct, 0);
@@ -104,10 +107,9 @@ export function GpatIntelligenceLab() {
     const selectedMode = modes.find(m => m.id === mode)!;
     let pool = eligible;
     if (mode === "application") pool = pool.filter(q => q.type === "Application" || q.type === "Numerical");
-    if (mode === "topic" && pool.length) pool = pool.filter(q => q.topic === pool[0].topic);
     const count = Math.min(selectedMode.count, pool.length);
     if (!count) return;
-    const selected = [...pool].sort((a,b) => a.year - b.year || a.number - b.number).slice(0,count);
+    const selected = [...pool].sort(() => Math.random() - 0.5).slice(0,count);
     setQuiz(selected); setIndex(0); setAnswers({}); setMarked([]); setSeconds(0); setSubmitted(false); setShowConfirm(false); setTab("test");
   }
   function finishTest() {
@@ -164,7 +166,7 @@ export function GpatIntelligenceLab() {
         <section className="gil-panel"><div className="gil-panel-title"><h2>Recent test results</h2><button onClick={()=>setTab("analytics")}>View all</button></div>{attempts.length?<ul className="gil-recent">{attempts.slice(0,4).map(a=><li key={a.id}><span>{a.mode}<small>{new Date(a.date).toLocaleDateString()}</small></span><strong>{a.correct}/{a.total} · {pct(a.correct,a.total)}%</strong></li>)}</ul>:<div className="gil-empty"><Target/><strong>Your first result starts here.</strong><p>No attempts are saved yet. Start a test to build real performance insights.</p><button onClick={()=>setTab("arena")}>Choose a test</button></div>}</section>
       </div>
       <div className="gil-panel gil-weak"><div className="gil-panel-title"><h2>Weak topics & learning streak</h2><span>BASED ON YOUR ATTEMPTS</span></div>{saved.errors.length?<div className="gil-topic-list">{saved.errors.slice(0,5).map(e=>{const q=gpatPyqs.find(x=>x.id===e.questionId)!;return <div key={e.questionId}><span>{q.topic}<small>{q.subject} · {e.category}</small></span><strong>Review</strong></div>})}</div>:<p className="gil-muted">Weak areas will appear here after you attempt questions. No scores or streaks are fabricated.</p>}</div>
-      <div className="gil-source-note">SOURCE BANK · {gpatPyqs.filter(q=>q.verified).length} readable, source-attributed questions from your uploaded GPAT 2014 and 2019 PDFs. Unverified or figure-dependent items are excluded from scored tests.</div>
+      <div className="gil-source-note">QUESTION BANK · {gpatPyqs.filter(q=>q.verified).length} reviewed items: uploaded GPAT 2014/2019 questions plus original practice questions. Practice items are never labelled as official PYQs.</div>
     </section>}
 
     {tab==="academy" && <section className="gil-section">
@@ -174,17 +176,17 @@ export function GpatIntelligenceLab() {
     </section>}
 
     {tab==="arena" && <section className="gil-section">
-      <header className="gil-heading"><p className="gil-kicker">TEST ARENA</p><h1>Train your <em>thinking.</em></h1><p>Authentic transcribed questions from the attached answer-key PDFs. Explanations appear after submission.</p></header>
+      <header className="gil-heading"><p className="gil-kicker">TEST ARENA</p><h1>Train your <em>thinking.</em></h1><p>Uploaded GPAT questions and additional reviewed practice questions. Every item is labelled by provenance; explanations appear after submission.</p></header>
       {!quiz.length ? <div className="gil-setup">
         <div className="gil-panel"><p className="gil-kicker">01 / SELECT YOUR TEST</p><div className="gil-mode-grid">{modes.map(m=><button key={m.id} className={mode===m.id?"active":""} onClick={()=>setMode(m.id)}><strong>{m.label}</strong><span>{m.hint}</span></button>)}</div>
-          <div className="gil-form-grid"><label>Subject<select value={subject} onChange={e=>setSubject(e.target.value)}>{gpatSubjects.map(s=><option key={s}>{s}</option>)}</select></label><label>Question type<select value={difficulty} onChange={e=>setDifficulty(e.target.value)}>{["All","Direct","Conceptual","Application","Numerical"].map(s=><option key={s}>{s}</option>)}</select></label><label>Mode<select value={timed?"Timed":"Untimed"} onChange={e=>setTimed(e.target.value==="Timed")}><option>Untimed</option><option>Timed</option></select></label></div>
-          <div className="gil-setup-footer"><span>{eligible.length} verified source questions available for this selection. Test length is capped to the available question pool.</span><button onClick={startTest} disabled={!eligible.length}>Start test <ArrowRight size={16}/></button></div>
+          <div className="gil-form-grid"><label>Subject<select value={subject} onChange={e=>setSubject(e.target.value)}>{gpatSubjects.map(s=><option key={s}>{s}</option>)}</select></label><label>Topic<select value={topic} onChange={e=>setTopic(e.target.value)}><option>All topics</option>{availableTopics.map(t=><option key={t}>{t}</option>)}</select></label><label>Question type<select value={difficulty} onChange={e=>setDifficulty(e.target.value)}>{["All","Direct","Conceptual","Application","Numerical"].map(s=><option key={s}>{s}</option>)}</select></label><label>Mode<select value={timed?"Timed":"Untimed"} onChange={e=>setTimed(e.target.value==="Timed")}><option>Untimed</option><option>Timed</option></select></label></div>
+          <div className="gil-setup-footer"><span>{eligible.length} reviewed questions available for this selection. Each start draws a fresh mix; test length is capped to the available pool.</span><button onClick={startTest} disabled={!eligible.length}>Start test <ArrowRight size={16}/></button></div>
         </div>
-        <aside className="gil-panel gil-test-rules"><h3>Question provenance</h3><p>Each PYQ shows its year, original question number and PDF page. Source answer keys are preserved; questionable items are withheld from scoring.</p><h3>Marking scheme</h3><p>Neutral scoring is used for this first bank: +1 correct, 0 incorrect or skipped. Configure coaching-specific negative marking when you add that test&apos;s rules.</p></aside>
+        <aside className="gil-panel gil-test-rules"><h3>Question provenance</h3><p>Uploaded PYQs show their year, question number and PDF page. Original practice questions are clearly labelled. Source keys are retained; questionable items are withheld from scoring.</p><h3>Marking scheme</h3><p>Neutral scoring: +1 correct, 0 incorrect or skipped. Configure coaching-specific negative marking when needed; do not assume every exam uses the same scheme.</p></aside>
       </div> : <div className="gil-test">
         <div className="gil-test-bar"><span>{modes.find(m=>m.id===mode)?.label} · {index+1}/{quiz.length}</span><span><Clock3 size={15}/>{timed?formatTime(seconds):"Untimed"}</span></div>
-        {submitted ? <div className="gil-result"><Trophy/><p className="gil-kicker">TEST COMPLETE</p><h2>{quiz.filter(q=>answers[q.id]===q.answer).length} / {quiz.length} correct</h2><strong>{pct(quiz.filter(q=>answers[q.id]===q.answer).length,quiz.length)}% accuracy</strong><p>Incorrect and skipped questions have been added to your Error Notebook with a next-day revision date.</p><div className="gil-result-actions"><button onClick={()=>{setQuiz([]);setTab("errors");}}>Review mistakes</button><button className="gil-secondary" onClick={()=>setQuiz([])}>Back to test setup</button></div><div className="gil-answer-review">{quiz.map((q,i)=><article key={q.id}><div className="gil-question-meta"><span>GPAT {q.year} · Q{q.number}</span><span>{q.subject}</span><span>{answers[q.id]===q.answer?"Correct":answers[q.id]===undefined?"Skipped":"Incorrect"}</span></div><h3>{i+1}. {q.prompt}</h3><p><strong>Correct answer:</strong> {q.options[q.answer]}</p><p>{q.explanation}</p><small>{q.source}</small></article>)}</div></div> : <>
-          <div className="gil-question"><div className="gil-question-meta"><span>{currentQuestion.subject}</span><span>{currentQuestion.type}</span><span>GPAT {currentQuestion.year} · Q{currentQuestion.number} · PDF p.{currentQuestion.page}</span></div><h2>{currentQuestion.prompt}</h2><div className="gil-options">{currentQuestion.options.map((o,i)=><button key={i} className={answers[currentQuestion.id]===i?"selected":""} onClick={()=>setAnswers(a=>({...a,[currentQuestion.id]:i}))}><span>{String.fromCharCode(65+i)}</span>{o}{answers[currentQuestion.id]===i?<Check size={16}/>:null}</button>)}</div><div className="gil-explain"><strong>Source</strong><span>{currentQuestion.source}</span></div></div>
+        {submitted ? <div className="gil-result"><Trophy/><p className="gil-kicker">TEST COMPLETE</p><h2>{quiz.filter(q=>answers[q.id]===q.answer).length} / {quiz.length} correct</h2><strong>{pct(quiz.filter(q=>answers[q.id]===q.answer).length,quiz.length)}% accuracy</strong><p>Incorrect and skipped questions have been added to your Error Notebook with a next-day revision date.</p><div className="gil-result-actions"><button onClick={()=>{setQuiz([]);setTab("errors");}}>Review mistakes</button><button className="gil-secondary" onClick={()=>setQuiz([])}>Back to test setup</button></div><div className="gil-answer-review">{quiz.map((q,i)=><article key={q.id}><div className="gil-question-meta"><span>{q.sourceType==="Practice Question"?"Practice Question":`GPAT ${q.year} · Q${q.number}`}</span><span>{q.subject}</span><span>{answers[q.id]===q.answer?"Correct":answers[q.id]===undefined?"Skipped":"Incorrect"}</span></div><h3>{i+1}. {q.prompt}</h3><p><strong>Correct answer:</strong> {q.options[q.answer]}</p><p>{q.explanation}</p><small>{q.source}</small></article>)}</div></div> : <>
+          <div className="gil-question"><div className="gil-question-meta"><span>{currentQuestion.subject}</span><span>{currentQuestion.type}</span><span>{currentQuestion.sourceType==="Practice Question"?"PRACTICE QUESTION":`GPAT ${currentQuestion.year} · Q${currentQuestion.number} · PDF p.${currentQuestion.page}`}</span></div><h2>{currentQuestion.prompt}</h2><div className="gil-options">{currentQuestion.options.map((o,i)=><button key={i} className={answers[currentQuestion.id]===i?"selected":""} onClick={()=>setAnswers(a=>({...a,[currentQuestion.id]:i}))}><span>{String.fromCharCode(65+i)}</span>{o}{answers[currentQuestion.id]===i?<Check size={16}/>:null}</button>)}</div><div className="gil-explain"><strong>Source</strong><span>{currentQuestion.source}</span></div></div>
           <div className="gil-question-footer"><button className="gil-secondary" onClick={()=>setMarked(m=>m.includes(currentQuestion.id)?m.filter(x=>x!==currentQuestion.id):[...m,currentQuestion.id])}><Flag size={15}/>{marked.includes(currentQuestion.id)?"Marked":"Mark for review"}</button><div><button className="gil-secondary" disabled={index===0} onClick={()=>setIndex(i=>i-1)}><ArrowLeft size={15}/> Previous</button>{index<quiz.length-1?<button onClick={()=>setIndex(i=>i+1)}>Next <ArrowRight size={15}/></button>:<button onClick={()=>setShowConfirm(true)}>Submit test <CheckCircle2 size={15}/></button>}</div></div>
           <div className="gil-palette">{quiz.map((q,i)=><button key={q.id} className={i===index?"current":answers[q.id]!==undefined?"answered":marked.includes(q.id)?"marked":""} onClick={()=>setIndex(i)} aria-label={"Go to question "+(i+1)}>{i+1}</button>)}</div>
           {showConfirm&&<div className="gil-confirm"><div><strong>Submit this test?</strong><p>{quiz.filter(q=>answers[q.id]!==undefined).length} answered · {quiz.filter(q=>answers[q.id]===undefined).length} unattempted · {marked.length} marked for review</p><button onClick={finishTest}>Confirm submission</button><button className="gil-secondary" onClick={()=>setShowConfirm(false)}>Continue test</button></div></div>}
