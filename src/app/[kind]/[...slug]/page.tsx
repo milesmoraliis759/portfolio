@@ -54,7 +54,8 @@ function addHeadingIds() {
     const counts = new Map<string, number>();
     const visit = (node: any) => {
       if (node.type === "heading" && (node.depth === 2 || node.depth === 3)) {
-        const title = (node.children ?? []).map((child: any) => child.value ?? "").join("");
+        const readText = (part: any): string => part.value ?? (part.children ?? []).map(readText).join("");
+        const title = (node.children ?? []).map(readText).join("");
         const base = slugifyHeading(title);
         const count = counts.get(base) ?? 0;
         counts.set(base, count + 1);
