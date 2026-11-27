@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useEffect, useState } from "react";
 import { Search } from "lucide-react";
 import { ThemeToggle } from "@/components/theme-toggle";
 
@@ -13,6 +14,11 @@ const links = [
 
 export function SiteHeader() {
   const pathname = usePathname();
+  const [selectedHref, setSelectedHref] = useState(pathname);
+
+  useEffect(() => {
+    setSelectedHref(pathname);
+  }, [pathname]);
 
   return (
     <header className="site-header">
@@ -20,13 +26,14 @@ export function SiteHeader() {
         <Link href="/" className="brand" aria-label="Harsh Mishra home">Harsh Mishra<span className="brand-dot">.</span></Link>
         <nav className="main-nav" aria-label="Main navigation">
           {links.map((link) => {
-            const active = pathname === link.href || pathname.startsWith(link.href + "/");
+            const active = selectedHref === link.href || selectedHref.startsWith(link.href + "/");
             return (
               <Link
                 key={link.href}
                 href={link.href}
                 className={active ? "nav-item is-active" : "nav-item"}
                 aria-current={active ? "page" : undefined}
+                onClick={() => setSelectedHref(link.href)}
               >
                 {link.label}
               </Link>
