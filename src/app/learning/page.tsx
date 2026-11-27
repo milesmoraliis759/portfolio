@@ -30,7 +30,6 @@ export default function LearningPage() {
         <Link href="/practice">Practice Lab</Link>
         <Link href="/pyqs">PYQs</Link>
         <Link href="/revision">Revision Desk</Link>
-        <Link href="/gpat-intelligence-lab" className="is-featured">GPAT Intelligence Lab <span>NEW</span></Link>
       </nav>
       <div className="learning-banner">
         <GraduationCap size={28}/>
