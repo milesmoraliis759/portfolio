@@ -1533,3 +1533,16 @@ body > main, body > .site-header, body > .site-footer { position: relative; z-in
   display: none !important;
   content: none !important;
 }
+
+
+/* Remove the legacy underline indicator from every navigation link, active or inactive. */
+.site-header .main-nav a::after,
+.site-header .main-nav a:hover::after,
+.site-header .main-nav a:focus-visible::after,
+.site-header .main-nav a[aria-current="page"]::after {
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
+  content: none !important;
+  background: none !important;
+}
