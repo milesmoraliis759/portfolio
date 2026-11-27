@@ -55,8 +55,8 @@ export function GpatIntelligenceLab() {
     return (
       <section className="mx-auto w-full max-w-3xl py-8">
         <div className="mb-8">
-          <p className="eyebrow">GPAT PRACTICE</p>
-          <h1 className="text-4xl sm:text-5xl">Akatsuki <em>Trials.</em></h1>
+          <p className="eyebrow">GPAT PRACTICE QUIZ</p>
+          <h1 className="text-4xl sm:text-5xl">GPAT <em>Practice Quiz.</em></h1>
           <p className="page-lede mt-4">Choose a subject and start a quiz. Submit your answers to see your score and explanations.</p>
         </div>
 
