@@ -35,14 +35,14 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   } : { title: "Not found" };
 }
 function slugifyHeading(value: string) {
-  return value.toLowerCase().trim().replace(/[`*_~]/g, "").replace(/[^\\p{L}\\p{N}\\s-]/gu, "").replace(/\\s+/g, "-").replace(/-+/g, "-");
+  return value.toLowerCase().trim().replace(/[`*_~]/g, "").replace(/[^\p{L}\p{N}\s-]/gu, "").replace(/\s+/g, "-").replace(/-+/g, "-");
 }
 function extractHeadings(source: string): TocItem[] {
   const counts = new Map<string, number>();
-  return source.split("\\n").flatMap((line) => {
-    const match = line.match(/^(#{2,3})\\s+(.+?)\\s*#*\\s*$/);
+  return source.split("\n").flatMap((line) => {
+    const match = line.match(/^(#{2,3})\s+(.+?)\s*#*\s*$/);
     if (!match) return [];
-    const title = match[2].replace(/\\*\\*(.*?)\\*\\*/g, "$1").replace(/\\*(.*?)\\*/g, "$1").replace(/`(.*?)`/g, "$1").trim();
+    const title = match[2].replace(/\*\*(.*?)\*\*/g, "$1").replace(/\*(.*?)\*/g, "$1").replace(/`(.*?)`/g, "$1").trim();
     const base = slugifyHeading(title);
     const count = counts.get(base) ?? 0;
     counts.set(base, count + 1);
