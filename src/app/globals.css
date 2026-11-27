@@ -1523,3 +1523,13 @@ body > main, body > .site-header, body > .site-footer { position: relative; z-in
   .main-nav .nav-item,.main-nav .nav-item::before { transition: none; }
   .main-nav .nav-item:active { animation: none; }
 }
+
+
+/* The active pill already provides its own indicator; remove the legacy underline. */
+.main-nav .nav-item::after,
+.main-nav .nav-item:hover::after,
+.main-nav .nav-item[aria-current="page"]::after,
+.main-nav .nav-item:focus-visible::after {
+  display: none !important;
+  content: none !important;
+}
